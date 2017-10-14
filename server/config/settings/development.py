@@ -28,7 +28,7 @@ class Development(common.Common):
         'version': 1,
         'disable_existing_loggers': True,
         'root': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'handlers': ['django_rest_logger_handler'],
         },
         'formatters': {
