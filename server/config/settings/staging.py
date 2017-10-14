@@ -1,1 +1,5 @@
-from djangoreactredux.settings.prod import *  # NOQA (ignore all errors on this line)
+from config.settings import common
+
+
+class Staging(common.Common):
+    pass

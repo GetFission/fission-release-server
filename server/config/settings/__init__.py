@@ -1,3 +1,3 @@
-from development import Development
-from staging import Staging
-from production import Production
+from config.settings.development import Development
+# from config.settings.staging import Staging
+# from config.settings.production import Production

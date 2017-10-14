@@ -7,7 +7,12 @@ from configurations import Configuration, values
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
 
-class Development(Configuration):
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+
+
+class Common(Configuration):
+    BASE_DIR = BASE_DIR
+
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'ajsdgas7&*kosdsa21[]jaksdhlka-;kmcv8l$#diepsm8&ah^'
 
@@ -80,8 +85,8 @@ class Development(Configuration):
 
     USE_TZ = True
 
+    # TODO (Ahmed): investigate auth0
     AUTH_USER_MODEL = 'accounts.User'
-
     ACCOUNT_ACTIVATION_DAYS = 7  # days
 
     STATIC_URL = '/static/'

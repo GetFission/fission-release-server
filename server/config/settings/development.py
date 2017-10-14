@@ -1,4 +1,4 @@
-import common
+from config.settings import common
 
 
 class Development(common.Common):
@@ -19,7 +19,10 @@ class Development(common.Common):
         }
     }
 
-    REST_FRAMEWORK['EXCEPTION_HANDLER'] = 'django_rest_logger.handlers.rest_exception_handler'  # NOQA (ignore all errors on this line)
+    # TODO AA Figure out a way to make this work
+    # REST_FRAMEWORK['EXCEPTION_HANDLER'] = (
+    #     'django_rest_logger.handlers.rest_exception_handler'
+    # )
 
     LOGGING = {
         'version': 1,
@@ -57,6 +60,6 @@ class Development(common.Common):
 
     DEFAULT_LOGGER = 'django_rest_logger'
 
-    LOGGER_EXCEPTION = DEFAULT_LOGGER
-    LOGGER_ERROR = DEFAULT_LOGGER
-    LOGGER_WARNING = DEFAULT_LOGGER
+    LOGGER_EXCEPTION = property(lambda x: x.DEFAULT_LOGGER)
+    LOGGER_ERROR = property(lambda x: x.DEFAULT_LOGGER)
+    LOGGER_WARNING = property(lambda x: x.DEFAULT_LOGGER)
