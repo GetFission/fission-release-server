@@ -21,7 +21,8 @@ class Production(common.Common):
         }
     }
 
-    REST_FRAMEWORK['EXCEPTION_HANDLER'] = 'django_rest_logger.handlers.rest_exception_handler'  # NOQA (ignore all errors on this line)
+    # TODO fix
+    # REST_FRAMEWORK['EXCEPTION_HANDLER'] = 'django_rest_logger.handlers.rest_exception_handler'  # NOQA (ignore all errors on this line)
 
     # ########### Sentry configuration
 
@@ -30,9 +31,9 @@ class Production(common.Common):
         'dsn': '',
     }
 
-    INSTALLED_APPS = INSTALLED_APPS + (  # NOQA (ignore all errors on this line)
-        'raven.contrib.django.raven_compat',
-    )
+    # INSTALLED_APPS = INSTALLED_APPS + (  # NOQA (ignore all errors on this line)
+    #     'raven.contrib.django.raven_compat',
+    # )
 
     # ####### Logging
 

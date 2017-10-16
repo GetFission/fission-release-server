@@ -5,9 +5,11 @@ import sys
 
 from configurations import Configuration, values
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
+BASE_DIR = os.path.dirname(
+        os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, BASE_DIR)
 
 
 class Common(Configuration):
