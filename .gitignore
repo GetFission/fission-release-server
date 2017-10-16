@@ -46,3 +46,4 @@ scripts/
 ## Dev
 .python-version
 .node-version
+.env
