@@ -11,17 +11,12 @@ class Production(common.Common):
 
     # TODO: n a real production server this should have a proper url
     ALLOWED_HOSTS = ['*']
-    # DATABASES['default'] = dj_database_url.parse(
-    #     'postgres://USER:PASSWORD@HOST:PORT/NAME'
-    #     .format(
-    #         ser=os.environ.get('DATABASE_USER')
-    #     )
-    # )
 
     DATABASES = values.DatabaseURLValue()
 
     # TODO fix
     # REST_FRAMEWORK['EXCEPTION_HANDLER'] = 'django_rest_logger.handlers.rest_exception_handler'  # NOQA (ignore all errors on this line)
+
 
     # ########### Sentry configuration
 
