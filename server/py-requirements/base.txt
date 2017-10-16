@@ -27,6 +27,7 @@ django-rest-knox==3.0.3
 
 # Read environments
 python-dotenv==0.7.1
+django-configurations==2.0
 
 # Serve
 waitress==1.1.0
