@@ -1,3 +1,5 @@
+from configurations import values
+
 from config.settings import common
 
 
@@ -9,17 +11,14 @@ class Production(common.Common):
 
     # TODO: n a real production server this should have a proper url
     ALLOWED_HOSTS = ['*']
+    # DATABASES['default'] = dj_database_url.parse(
+    #     'postgres://USER:PASSWORD@HOST:PORT/NAME'
+    #     .format(
+    #         ser=os.environ.get('DATABASE_USER')
+    #     )
+    # )
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'djangoreactredux_prod',
-            'USER': 'djangoreactredux',
-            'PASSWORD': 'password',
-            'HOST': 'postgres',
-            'PORT': 5432,
-        }
-    }
+    DATABASES = values.DatabaseURLValue()
 
     # TODO fix
     # REST_FRAMEWORK['EXCEPTION_HANDLER'] = 'django_rest_logger.handlers.rest_exception_handler'  # NOQA (ignore all errors on this line)
