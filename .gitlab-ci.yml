@@ -1,7 +1,12 @@
 image: python:3.6
 
 services:
-  - postgres:9.5.0
+  - postgres
+
+variables:
+  DATABASE_HOST: postgres
+  DATABASE_USER: postgres
+  DATABASE_PASSWORD: ""
 
 test:
   script:
