@@ -1,9 +1,9 @@
 services:
-  - postgres:9.6.1
+  - postgres:9.5.0
 
 test:
   script:
-    - export DATABASE_URL=postgres://postgres:@postgres:5432/python-test-app
+    - export DATABASE_URL=postgres://postgres:@postgres:5432/electronfission
     - apt-get update -qy
     - apt-get install -y python-dev python-pip
     - pip install -r requirements.txt
