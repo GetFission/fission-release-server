@@ -1,0 +1,49 @@
+[
+  { 
+    "version": "V0.13",
+    "OS": "darwin",
+    "date": "12/05/16"
+  },
+  { 
+    "version": "V0.13",
+    "OS": "linux",
+    "date": "12/05/16"
+  },
+  { 
+    "version": "V0.14",
+    "OS": "darwin",
+    "date": "12/05/18"
+  },
+  { 
+    "version": "V0.14",
+    "OS": "linux",
+    "date": "12/05/18"
+  },
+  { 
+    "version": "V0.15",
+    "OS": "darwin",
+    "date": "12/05/25",
+    "active": true
+  },
+  { 
+    "version": "V0.15",
+    "OS": "linux",
+    "date": "12/05/25",
+    "active": true
+  },
+  { 
+    "version": "V0.20",
+    "OS": "darwin",
+    "date": "12/05/31",
+    "active": true,
+    "rollout": "10%"
+  },
+  { 
+    "version": "V0.20",
+    "OS": "linux",
+    "date": "12/05/31",
+    "active": true,
+    "rollout": "10%"
+  }
+]
+
