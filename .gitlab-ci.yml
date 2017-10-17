@@ -7,19 +7,11 @@ variables:
   POSTGRES_DB: electronfission_dev
 
 before_script:
-  - python -V                                   # Print out python version for debugging
+  - python3 -V  # Print out python version for debugging
   # Uncomment next line if your Django app needs a JS runtime:
   # - apt-get update -q && apt-get install nodejs -yqq
   - pip3 install -r server/py-requirements/dev.txt
 
-# test:
-#   script:
-#     - export DATABASE_URL="postgresql://postgres:@postgres:5432/$POSTGRES_DB"
-#     - export DJANGO_CONFIGURATION=CI
-#     - ps aux | grep postgres
-#     - apt-get update -qy
-#     - pip3 install -r requirements.txt
-#     - cd server && python3 manage.py test
 
 test:
   variables:
@@ -27,11 +19,3 @@ test:
   script:
   - export DJANGO_CONFIGURATION=CI
   - cd server && python3 manage.py test
-
-
-# connect:
-#   image: postgres
-#     script:
-#     # official way to provide password to psql: http://www.postgresql.org/docs/9.3/static/libpq-envars.html
-#     - export PGPASSWORD=$POSTGRES_PASSWORD
-#     - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
