@@ -28,54 +28,6 @@ class Production(common.Common):
     # INSTALLED_APPS = INSTALLED_APPS + (  # NOQA (ignore all errors on this line)
     #     'raven.contrib.django.raven_compat',
     # )
-
-    # ####### Logging
-
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': True,
-        'root': {
-            'level': 'WARNING',
-            'handlers': ['sentry'],
-        },
-        'formatters': {
-            'verbose': {
-                'format': '%(levelname)s %(asctime)s %(module)s '
-                          '%(process)d %(thread)d %(message)s'
-            },
-        },
-        'handlers': {
-            'sentry': {
-                'level': 'ERROR',
-                'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            },
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'verbose'
-            }
-        },
-        'loggers': {
-            'django.db.backends': {
-                'level': 'ERROR',
-                'handlers': ['console'],
-                'propagate': False,
-            },
-            'raven': {
-                'level': 'DEBUG',
-                'handlers': ['sentry'],
-                'propagate': False,
-            },
-            'sentry.errors': {
-                'level': 'DEBUG',
-                'handlers': ['sentry'],
-                'propagate': False,
-            },
-        },
-    }
-
+ 
     DEFAULT_LOGGER = 'raven'
 
-    LOGGER_EXCEPTION = DEFAULT_LOGGER
-    LOGGER_ERROR = DEFAULT_LOGGER
-    LOGGER_WARNING = DEFAULT_LOGGER

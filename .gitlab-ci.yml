@@ -9,11 +9,12 @@ variables:
   # DATABASE_PASSWORD: ""
   POSTGRES_DB: postgres
   POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
+  POSTGRES_PASSWORD: ""
 
 test:
   script:
-    - export DATABASE_URL="postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
+    - export DATABASE_URL="postgresql://postgres:@postgres:5432/$POSTGRES_DB"
+    - export DJANGO_CONFIGURATION=CI
     - ps aux | grep postgres
     - apt-get update -qy
     - pip3 install -r requirements.txt
