@@ -14,6 +14,7 @@ variables:
 test:
   script:
     - export DATABASE_URL=postgres://postgres:@postgres:5432/electronfission
+    - ps aux | grep postgres
     - apt-get update -qy
     - pip3 install -r requirements.txt
     - cd server && python3 manage.py test
