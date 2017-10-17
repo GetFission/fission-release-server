@@ -4,17 +4,24 @@ services:
   - postgres
 
 variables:
-  DATABASE_HOST: postgres
-  DATABASE_USER: postgres
-  DATABASE_PASSWORD: ""
+  # DATABASE_HOST: postgres
+  # DATABASE_USER: postgres
+  # DATABASE_PASSWORD: ""
   POSTGRES_DB: postgres
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: ""
 
 test:
   script:
-    - export DATABASE_URL=postgres://postgres:@postgres:5432/electronfission
+    - export DATABASE_URL=postgres://postgres:@postgres:5432/postgres
     - ps aux | grep postgres
     - apt-get update -qy
     - pip3 install -r requirements.txt
     - cd server && python3 manage.py test
+
+connect:
+  image: postgres
+    script:
+      # official way to provide password to psql: http://www.postgresql.org/docs/9.3/static/libpq-envars.html
+      - export PGPASSWORD=$POSTGRES_PASSWORD
+      - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
