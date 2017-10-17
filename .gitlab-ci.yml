@@ -15,14 +15,13 @@ cache:
   - ~/.cache/pip/
 
 
-before_script:
-  - python3 -V  # Print out python version for debugging
-  # Uncomment next line if your Django app needs a JS runtime:
-  # - apt-get update -q && apt-get install nodejs -yqq
-  - pip3 install -r server/py-requirements/dev.txt
-
-
 test:
+  before_script:
+    - python3 -V  # Print out python version for debugging
+    # Uncomment next line if your Django app needs a JS runtime:
+    # - apt-get update -q && apt-get install nodejs -yqq
+    - pip3 install -r server/py-requirements/dev.txt
+
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   script:
@@ -35,6 +34,7 @@ staging:
   script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
+  - apt-get install rubygems
   - gem install dpl
   - dpl --provider=heroku --strategy=git --username=$HEROKU_USER --password=$HEROKU_PASSWORD --app=staging-electron-fission
   only:
@@ -46,6 +46,7 @@ production:
   script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
+  - apt-get install rubygems
   - gem install dpl
   - dpl --provider=heroku --strategy=git --username=$HEROKU_USER --password=$HEROKU_PASSWORD --app=electron-fission
   when: manual
