@@ -4,21 +4,29 @@ services:
   - postgres:latest
 
 variables:
-  # DATABASE_HOST: postgres
-  # DATABASE_USER: postgres
-  # DATABASE_PASSWORD: ""
-  POSTGRES_DB: postgres
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: ""
+  POSTGRES_DB: electronfission_dev
+
+before_script:
+  - python -V                                   # Print out python version for debugging
+  # Uncomment next line if your Django app needs a JS runtime:
+  # - apt-get update -q && apt-get install nodejs -yqq
+  - pip3 install -r requirements.txt
+
+# test:
+#   script:
+#     - export DATABASE_URL="postgresql://postgres:@postgres:5432/$POSTGRES_DB"
+#     - export DJANGO_CONFIGURATION=CI
+#     - ps aux | grep postgres
+#     - apt-get update -qy
+#     - pip3 install -r requirements.txt
+#     - cd server && python3 manage.py test
 
 test:
+  variables:
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   script:
-    - export DATABASE_URL="postgresql://postgres:@postgres:5432/$POSTGRES_DB"
-    - export DJANGO_CONFIGURATION=CI
-    - ps aux | grep postgres
-    - apt-get update -qy
-    - pip3 install -r requirements.txt
-    - cd server && python3 manage.py test
+  - python3 manage.py test
+
 
 # connect:
 #   image: postgres
