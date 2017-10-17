@@ -3,8 +3,17 @@ image: python:3.6
 services:
   - postgres:latest
 
+
 variables:
   POSTGRES_DB: electronfission_dev
+
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+  - ~/.cache/pip/
+
 
 before_script:
   - python3 -V  # Print out python version for debugging
