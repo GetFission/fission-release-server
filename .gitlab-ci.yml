@@ -26,7 +26,7 @@ test:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   script:
   - export DJANGO_CONFIGURATION=CI
-  - cd && python3 manage.py test
+  - cd server && python3 manage.py test
 
 
 # connect:
