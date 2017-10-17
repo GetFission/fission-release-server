@@ -1,7 +1,7 @@
 image: python:3.6
 
 services:
-  - postgres
+  - postgres:latest
 
 variables:
   # DATABASE_HOST: postgres
@@ -13,15 +13,15 @@ variables:
 
 test:
   script:
-    - export DATABASE_URL=postgres://postgres:@postgres:5432/postgres
+    - export DATABASE_URL="postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
     - ps aux | grep postgres
     - apt-get update -qy
     - pip3 install -r requirements.txt
     - cd server && python3 manage.py test
 
-connect:
-  image: postgres
-    script:
-    # official way to provide password to psql: http://www.postgresql.org/docs/9.3/static/libpq-envars.html
-    - export PGPASSWORD=$POSTGRES_PASSWORD
-    - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
+# connect:
+#   image: postgres
+#     script:
+#     # official way to provide password to psql: http://www.postgresql.org/docs/9.3/static/libpq-envars.html
+#     - export PGPASSWORD=$POSTGRES_PASSWORD
+#     - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
