@@ -1,49 +1,72 @@
 [
-  { 
-    "version": "V0.13",
+  {
+    "version": "0.13",
     "OS": "darwin",
-    "date": "12/05/16"
+    "date": "12/05/16",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 147
   },
-  { 
-    "version": "V0.13",
+  {
+    "version": "0.13",
     "OS": "linux",
-    "date": "12/05/16"
+    "date": "12/05/16",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 148
   },
-  { 
-    "version": "V0.14",
+  {
+    "version": "0.14",
     "OS": "darwin",
-    "date": "12/05/18"
+    "date": "12/05/18",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 149
   },
-  { 
-    "version": "V0.14",
+  {
+    "version": "0.14",
     "OS": "linux",
-    "date": "12/05/18"
+    "date": "12/05/18",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 150
   },
-  { 
-    "version": "V0.15",
+  {
+    "version": "0.15",
     "OS": "darwin",
     "date": "12/05/25",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 151,
     "active": true
   },
-  { 
-    "version": "V0.15",
+  {
+    "version": "0.15",
     "OS": "linux",
     "date": "12/05/25",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 152,
     "active": true
   },
-  { 
-    "version": "V0.20",
+  {
+    "version": "0.20",
     "OS": "darwin",
     "date": "12/05/31",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 153,
     "active": true,
     "rollout": "10%"
   },
-  { 
-    "version": "V0.20",
+  {
+    "version": "0.20",
     "OS": "linux",
     "date": "12/05/31",
+    "architecture": "32",
+    "branch": "master",
+    "build_number": 154,
     "active": true,
     "rollout": "10%"
   }
 ]
-

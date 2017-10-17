@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="card">
+    <div class="card table-container">
       <div class="card-header">
         <div class="card-header-title">
           Releases for &nbsp;
@@ -22,12 +22,18 @@
             <tr>
               <th>Version</th>
               <th>Date</th>
+              <th>Arch</th>
+              <th>Branch</th>
+              <th>Build Number</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="file in files">
               <td>{{ file.version }}</td>
               <td>{{ file.date }}</td>
+              <td>{{ file.architecture }}</td>
+              <td>{{ file.branch }}</td>
+              <td><a href="https://gitlab.com/simplyahmazing/electron-fission">{{ file.build_number }}</a></td>
             </tr>
           </tbody>
         </table>
@@ -61,10 +67,10 @@
         const activeReleases = mockData.filter(release => release.active)
         const rollingOutReleases = mockData.filter(release => release.rollout)
         return {
+          'All': mockData,
           'Rolling': rollingOutReleases,
           'Active': activeReleases,
-          'Stale': staleReleases,
-          'All': mockData
+          'Stale': staleReleases
         }
       }
     }
@@ -82,5 +88,9 @@
 
   #project-name {
     border-bottom: 1px solid $blue;
+  }
+
+  .table-container {
+    min-width: 505px;
   }
 </style>
