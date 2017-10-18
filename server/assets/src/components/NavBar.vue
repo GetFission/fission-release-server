@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="#">
+      <router-link to="/" class="navbar-item" href="/#">
         <img src="../../static/electron.png" alt="Electron Fission Logo">
-      </a>
+      </router-link>
     </div>
 
     <div class="navbar-menu">
@@ -35,7 +35,7 @@
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="button">Login</div>
+          <router-link to="index" class="button">Login</router-link>
         </div>
         <div class="navbar-item">
           <div class="button is-link">Signup</div>
@@ -51,9 +51,7 @@
   }
 </script>
 
-<style scoped>
-  @import '~bulma/bulma.sass';
-
+<style scoped lang="scss">
   nav {
     padding-left: 64px;
     padding-right: 64px;

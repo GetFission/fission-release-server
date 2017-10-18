@@ -1,7 +1,7 @@
 [
   {
     "version": "0.13",
-    "OS": "darwin",
+    "os": "darwin",
     "date": "12/05/16",
     "architecture": "32",
     "branch": "master",
@@ -9,7 +9,7 @@
   },
   {
     "version": "0.13",
-    "OS": "linux",
+    "os": "linux",
     "date": "12/05/16",
     "architecture": "32",
     "branch": "master",
@@ -17,7 +17,7 @@
   },
   {
     "version": "0.14",
-    "OS": "darwin",
+    "os": "darwin",
     "date": "12/05/18",
     "architecture": "32",
     "branch": "master",
@@ -25,7 +25,7 @@
   },
   {
     "version": "0.14",
-    "OS": "linux",
+    "os": "linux",
     "date": "12/05/18",
     "architecture": "32",
     "branch": "master",
@@ -33,7 +33,7 @@
   },
   {
     "version": "0.15",
-    "OS": "darwin",
+    "os": "darwin",
     "date": "12/05/25",
     "architecture": "32",
     "branch": "master",
@@ -42,7 +42,7 @@
   },
   {
     "version": "0.15",
-    "OS": "linux",
+    "os": "linux",
     "date": "12/05/25",
     "architecture": "32",
     "branch": "master",
@@ -51,7 +51,7 @@
   },
   {
     "version": "0.20",
-    "OS": "darwin",
+    "os": "darwin",
     "date": "12/05/31",
     "architecture": "32",
     "branch": "master",
@@ -61,7 +61,7 @@
   },
   {
     "version": "0.20",
-    "OS": "linux",
+    "os": "linux",
     "date": "12/05/31",
     "architecture": "32",
     "branch": "master",

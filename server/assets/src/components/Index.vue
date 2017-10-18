@@ -21,6 +21,7 @@
           <thead>
             <tr>
               <th>Version</th>
+              <th>OS</th>
               <th>Date</th>
               <th>Arch</th>
               <th>Branch</th>
@@ -30,6 +31,7 @@
           <tbody>
             <tr v-for="file in files">
               <td>{{ file.version }}</td>
+              <td>{{ file.os }}</td>
               <td>{{ file.date }}</td>
               <td>{{ file.architecture }}</td>
               <td>{{ file.branch }}</td>
@@ -83,7 +85,8 @@
   .index {
     width: 50vw;
     margin: 0 auto;
-    margin-top: 32px;
+    margin-top: 64px;
+    background-image: linear-gradient(141deg, #04a6d7 0%, #209cee 71%, #3287f5 100%);
   }
 
   #project-name {
@@ -91,6 +94,6 @@
   }
 
   .table-container {
-    min-width: 505px;
+    min-width: 580px;
   }
 </style>

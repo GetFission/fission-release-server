@@ -20,7 +20,7 @@
   @import '~bulma/bulma.sass';
 
   #app {
-    background-color: $blue;
+    background-image: linear-gradient(140deg, #209cee 0%, $blue 100%);
     min-height: 100vh;
   }
 </style>
