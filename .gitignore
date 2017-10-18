@@ -10,6 +10,7 @@
 \#*
 
 virtualenv/
+env/
 htmlcov/
 src/static_dist/
 src/static_root/
@@ -46,3 +47,4 @@ scripts/
 ## Dev
 .python-version
 .node-version
+.env

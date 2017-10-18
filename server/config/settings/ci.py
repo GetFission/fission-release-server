@@ -1,12 +1,16 @@
-from djangoreactredux.settings.staging import *  # NOQA (ignore all errors on this line)
+from configurations import values
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'travis_ci_test',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+from config.settings import common
+
+
+class CI(common.Common):
+    DEBUG = False
+    TEMPLATE_DEBUG = DEBUG
+
+    PAGE_CACHE_SECONDS = 60
+
+    ALLOWED_HOSTS = ['*']
+
+    DATABASES = values.DatabaseURLValue()
+
+ 

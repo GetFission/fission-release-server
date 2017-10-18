@@ -1,0 +1,55 @@
+
+test:
+  image: python:3.6
+
+  services:
+    - postgres:latest
+
+
+  variables:
+    POSTGRES_DB: electronfission_dev
+
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+  cache:
+    paths:
+    - ~/.cache/pip/
+
+
+  before_script:
+    - python3 -V  # Print out python version for debugging
+    # Uncomment next line if your Django app needs a JS runtime:
+    # - apt-get update -q && apt-get install nodejs -yqq
+    - pip3 install -r server/py-requirements/dev.txt
+
+  variables:
+    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
+  script:
+  - export DJANGO_CONFIGURATION=CI
+  - cd server && python3 manage.py test
+
+
+staging:
+  type: deploy
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - apt-get install -y rubygems
+  - gem install dpl
+  - dpl --provider=heroku --strategy=git --api-key=$HEROKU_API_KEY --username=$HEROKU_USER --password=$HEROKU_PASSWORD --app=staging-electron-fission
+  only:
+  - master
+
+
+production:
+  type: deploy
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - apt-get install -y rubygems
+  - gem install dpl
+  - dpl --provider=heroku --strategy=git --username=$HEROKU_USER --password=$HEROKU_PASSWORD --app=electron-fission
+  when: manual
+  only:
+  - tags
