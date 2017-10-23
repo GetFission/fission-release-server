@@ -1,1 +1,1 @@
-export declare function print(msg: String): void;
+export declare function fissionPing(): Promise<void>;

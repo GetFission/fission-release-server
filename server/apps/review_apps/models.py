@@ -17,7 +17,7 @@ class ReviewAppBuild(dj_models.TimeStampedModel):
         ('jenkins', 'jenkins'),
     )
     platform = models.CharField(max_length=10, choices=PLATFORM_CHOICES)
-    ci = models.CharField(max_length=50, choices=PLATFORM_CHOICES)
+    ci = models.CharField(max_length=50, choices=CI_CHOICES)
 
     app_version = models.CharField(max_length=50, blank=True, null=True)
     branch_name = models.CharField(max_length=255, blank=True, null=True)
