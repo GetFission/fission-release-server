@@ -60,7 +60,7 @@ function getAppPlatform() {
     if (process.env.APP_PLATFORM) {
         return process.env.APP_PLATFORM;
     }
-    return 'N/A';
+    return process.env.PLATFORM || process.env.TRAVIS_OS_NAME || 'N/A';
 }
 function getCiName() {
     var travis = process.env.TRAVIS ? 'travis' : null;
@@ -68,8 +68,11 @@ function getCiName() {
     return travis || appVeyor || 'local';
 }
 function getBuildParams() {
+    // https://docs.travis-ci.com/user/environment-variables/
+    // https://www.appveyor.com/docs/environment-variables/
     return {
         ci: getCiName(),
+        commit_hash: process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A',
         platform: getAppPlatform(),
         branch_name: process.env.TRAVIS_BRANCH || process.env.APPVEYOR_REPO_BRANCH || 'N/A',
         ci_job_id: process.env.TRAVIS_JOB_ID || process.env.APPVEYOR_JOB_ID || 'N/A',
@@ -94,12 +97,12 @@ function fissionPing() {
                     return [4 /*yield*/, resp.data];
                 case 2:
                     _b.apply(_a, _c.concat([_d.sent()]));
-                    return [3 /*break*/, 4];
+                    return [2 /*return*/, true];
                 case 3:
                     err_1 = _d.sent();
                     console.log('[Error] Could not ping electron-fission server');
                     console.log('[Error]', err_1);
-                    return [3 /*break*/, 4];
+                    return [2 /*return*/, false];
                 case 4: return [2 /*return*/];
             }
         });

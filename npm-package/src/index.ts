@@ -33,6 +33,8 @@ function getCiName () : String {
 }
 
 function getBuildParams () {
+  // https://docs.travis-ci.com/user/environment-variables/
+  // https://www.appveyor.com/docs/environment-variables/
   return {
     ci: getCiName(),
     commit_hash: process.env.TRAVIS_COMMIT || process.env.APPVEYOR_REPO_COMMIT || 'N/A',

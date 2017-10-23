@@ -1,1 +1,1 @@
-export declare function fissionPing(): Promise<void>;
+export declare function fissionPing(): Promise<boolean>;
