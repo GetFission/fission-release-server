@@ -40,7 +40,8 @@ class Common(Configuration):
 
     PROJECT_APPS = (
         'accounts',
-        'base'
+        'base',
+        'review_apps'
     )
 
     INSTALLED_APPS = DJANGO_APPS + VENDOR_APPS + PROJECT_APPS
