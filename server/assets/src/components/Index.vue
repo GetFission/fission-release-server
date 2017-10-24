@@ -100,7 +100,6 @@
     },
     beforeRouteUpdate (to, from, next) {
       // see above
-      console.log('beforeRouterEnter')
       this.$http.get('localhost:8000/review-apps').then(response => {
         console.log(response)
       })
