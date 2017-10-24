@@ -29,7 +29,7 @@ class ReviewAppBuild(dj_models.TimeStampedModel):
     branch_name = models.CharField(max_length=255, blank=True, null=True)
     commit_hash = models.CharField(max_length=255, blank=True, null=True)
 
-    # build_url = models.CharField(max_length=50, blank=True, null=True)
+    build_url = models.CharField(max_length=50, blank=True, null=True)
     ci_job_id = models.CharField(max_length=50, blank=True, null=True)
     pull_request_number = models.CharField(
         max_length=255, blank=True, null=True

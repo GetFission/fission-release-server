@@ -2,7 +2,6 @@ from django.test import override_settings
 from rest_framework.test import APITestCase
 
 from projects import models as project_models
-from review_apps import models as review_app_models
 
 
 @override_settings()
@@ -14,6 +13,7 @@ class ReviewAppsTestCase(APITestCase):
         valid_post_data = { "ci": "appveyor",
                  "platform": "win32",
                  "branch_name": "master",
+                 "build_url": "example.com/foo/123",
                  "commit_hash": "123456",
                  "ci_job_id": "22",
                  "app_version": "1.4.5",
@@ -26,6 +26,7 @@ class ReviewAppsTestCase(APITestCase):
 
         res = resp.json()
         res.pop('id')  # remove id
+        res.pop('created')  # remove created time stamp
 
         expected = {'project': self.project.id, **valid_post_data}
         expected.pop('api_key')
