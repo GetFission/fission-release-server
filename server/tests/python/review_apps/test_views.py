@@ -11,7 +11,7 @@ class ReviewAppsTestCase(APITestCase):
         self.project = project_models.Project.objects.create(name='Test Project')
 
     def test_post_build_ping(self):
-        data = { "ci": "appveyor",
+        valid_post_data = { "ci": "appveyor",
                  "platform": "win32",
                  "branch_name": "master",
                  "commit_hash": "123456",
@@ -20,11 +20,28 @@ class ReviewAppsTestCase(APITestCase):
                  "pull_request_number": "33",
                  "api_key": str(self.project.api_key)
         }
-        resp = self.client.post('/review-apps/', data)
+        resp = self.client.post('/review-apps/', valid_post_data)
+        assert resp.status_code == 201
+        assert resp.status_text == 'Created'
+
         res = resp.json()
         res.pop('id')  # remove id
 
-        expected = {'project': self.project.id, **data}
+        expected = {'project': self.project.id, **valid_post_data}
         expected.pop('api_key')
         assert expected == res
-        # import pdb; pdb.set_trace()
+
+
+        invalid_post_data = valid_post_data
+        invalid_post_data.pop('api_key')
+        resp = self.client.post('/review-apps/', invalid_post_data)
+        assert resp.status_code == 400
+        assert resp.status_text == 'Bad Request'
+        assert resp.json() == {'api_key': ['This field is required.']}
+
+        invalid_post_data = valid_post_data
+        invalid_post_data['api_key'] = '123'
+        resp = self.client.post('/review-apps/', invalid_post_data)
+        assert resp.status_code == 400
+        assert resp.status_text == 'Bad Request'
+        assert resp.json() == {'api_key': ['Improperly formatted API KEY format']}
