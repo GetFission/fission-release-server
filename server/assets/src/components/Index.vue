@@ -89,6 +89,10 @@
       }
     },
     beforeRouterEnter (to, from, next) {
+      console.log('beforeRouterEnter')
+      this.$http.get('localhost:8000/review-apps').then(response => {
+        console.log(response)
+      })
       // fetch data from Flask - send client auth object with ID and token
       // if user exists and has associated builds, return them.
       // another option would be to handle that logic immediately after authentication,
@@ -96,6 +100,10 @@
     },
     beforeRouteUpdate (to, from, next) {
       // see above
+      console.log('beforeRouterEnter')
+      this.$http.get('localhost:8000/review-apps').then(response => {
+        console.log(response)
+      })
     }
   }
 </script>
