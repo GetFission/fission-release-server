@@ -16,3 +16,6 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
             'ci_job_id',
             'pull_request_number'
         )
+
+    # def validate_api_key(self):
+    #     pass

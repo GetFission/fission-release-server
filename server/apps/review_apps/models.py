@@ -16,6 +16,9 @@ class ReviewAppBuild(dj_models.TimeStampedModel):
         ('teamcity', 'teamcity'),
         ('jenkins', 'jenkins'),
     )
+
+    # project = models.ForeignKey('projects.project')
+
     platform = models.CharField(max_length=10, choices=PLATFORM_CHOICES)
     ci = models.CharField(max_length=50, choices=CI_CHOICES)
 
