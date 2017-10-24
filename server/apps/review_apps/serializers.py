@@ -18,7 +18,7 @@ def validate_api_key(api_key):
 
 
 class ReviewAppBuildSerializer(serializers.ModelSerializer):
-    api_key = serializers.CharField(max_length=255,  validators=[validate_api_key])
+    api_key = serializers.CharField(write_only=True, max_length=255,  validators=[validate_api_key])
     class Meta:
         model = models.ReviewAppBuild
         fields = (
@@ -34,7 +34,6 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
             # 'build_url',
             'pull_request_number'
         )
-
     # extra_kwargs = {"api_key": {"error_messages": {"required": "Valid api_key required"}}}
 
     def create(self, validated_data):
