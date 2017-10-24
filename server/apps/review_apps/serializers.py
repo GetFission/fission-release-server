@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 
 from projects import models as project_models
 from review_apps import models
@@ -12,8 +12,9 @@ def validate_api_key(api_key):
     except ValidationError:
         raise serializers.ValidationError('Improperly formatted API KEY format')
     except Exception as e:
-        print('Failed to find api key', e)
-        raise serializers.ValidationError('Invalid API KEY')
+        # TODO: log uncaught errors
+        raise serializers.ValidationError('Error looking up API KEY')
+    raise serializers.ValidationError('Invalid API KEY')
 
 
 class ReviewAppBuildSerializer(serializers.ModelSerializer):
@@ -30,10 +31,11 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
             'branch_name',
             'commit_hash',
             'ci_job_id',
+            # 'build_url',
             'pull_request_number'
         )
 
-    extra_kwargs = {"api_key": {"error_messages": {"required": "Valid api_key required"}}}
+    # extra_kwargs = {"api_key": {"error_messages": {"required": "Valid api_key required"}}}
 
     def create(self, validated_data):
         api_key = validated_data.pop('api_key')
