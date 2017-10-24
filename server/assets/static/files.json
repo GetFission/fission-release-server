@@ -20,7 +20,7 @@
     "os": "darwin",
     "date": "12/05/18",
     "architecture": "32",
-    "branch": "master",
+    "branch": "develop",
     "build_number": 149
   },
   {
@@ -28,7 +28,7 @@
     "os": "linux",
     "date": "12/05/18",
     "architecture": "32",
-    "branch": "master",
+    "branch": "develop",
     "build_number": 150
   },
   {
@@ -36,7 +36,7 @@
     "os": "darwin",
     "date": "12/05/25",
     "architecture": "32",
-    "branch": "master",
+    "branch": "hotfix",
     "build_number": 151,
     "active": true
   },
@@ -45,7 +45,7 @@
     "os": "linux",
     "date": "12/05/25",
     "architecture": "32",
-    "branch": "master",
+    "branch": "hotfix",
     "build_number": 152,
     "active": true
   },
