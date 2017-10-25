@@ -20,9 +20,7 @@
             <thead>
               <tr>
                 <th>Version</th>
-                <th>Date</th>
-                <th>OS</th>
-                <th>Arch</th>
+                <th>Platform</th>
                 <th>Commit</th>
                 <th>Build</th>
                 <th>Image</th>
@@ -30,12 +28,10 @@
             </thead>
             <tbody>
               <tr v-for="file in files">
-                <td>{{ file.version }}</td>
-                <td>{{ file.date }}</td>
-                <td>{{ file.os }}</td>
-                <td>{{ file.architecture }}</td>
-                <td><a href="#">{{ Math.random().toString(36).substring(7) }}</a></td>
-                <td><a href="https://gitlab.com/simplyahmazing/electron-fission">{{ file.build_number }}</a></td>
+                <td>{{ file.app_version }}</td>
+                <td>{{ file.platform }}</td>
+                <td><a href="#">{{ file.commit_hash }}</a></td>
+                <td><a href="https://gitlab.com/simplyahmazing/electron-fission">{{ file.ci_job_id }}</a></td>
                 <td><a href="#">S3</a></td>
               </tr>
             </tbody>
@@ -48,14 +44,14 @@
 </template>
 
 <script>
-  const mockData = require('../../static/files.json')
+  import REST from '../services/REST'
   
   export default {
     name: 'Index',
     data: function () {
       return {
-        mockData: mockData,
-        selectedGroup: 'All'
+        selectedGroup: 'All',
+        releases: []
       }
     },
     methods: {
@@ -64,44 +60,33 @@
       },
       tabClass (name) {
         return name === this.selectedGroup ? 'is-active' : ''
+      },
+      setReleases (releases) {
+        this.releases = releases
       }
     },
     computed: {
-      fileGroups () {
-        const staleReleases = mockData.filter(release => !release.active)
-        const activeReleases = mockData.filter(release => release.active)
-        const rollingOutReleases = mockData.filter(release => release.rollout)
-        return {
-          'All': mockData,
-          'Rolling': rollingOutReleases,
-          'Active': activeReleases,
-          'Stale': staleReleases
-        }
-      },
       branchGroups () {
-        const uniqueBranches = [...new Set(mockData.map(build => build.branch))]
+        const uniqueBranches = [...new Set(this.releases.map(build => build.branch_name))]
         const branchBuilds = {}
         uniqueBranches.map(branch => {
-          const builds = mockData.filter(build => build.branch === branch)
+          const builds = this.releases.filter(build => build.branch_name === branch)
           branchBuilds[branch] = builds
         })
         return branchBuilds
       }
     },
-    beforeRouterEnter (to, from, next) {
-      console.log('beforeRouterEnter')
-      this.$http.get('localhost:8000/review-apps').then(response => {
-        console.log(response)
+    beforeRouteEnter (to, from, next) {
+      // in the future, we will pass in our auth token/id and project name/api key
+      REST.getReviewApps().then(response => {
+        next(vm => vm.setReleases(response))
       })
-      // fetch data from Flask - send client auth object with ID and token
-      // if user exists and has associated builds, return them.
-      // another option would be to handle that logic immediately after authentication,
-      // and have this component simply redirect home if there is no proper data fed to it.
     },
     beforeRouteUpdate (to, from, next) {
-      // see above
-      this.$http.get('localhost:8000/review-apps').then(response => {
-        console.log(response)
+      this.releases = []
+      REST.getReviewApps().then(response => {
+        this.setReleases(response)
+        next()
       })
     }
   }
