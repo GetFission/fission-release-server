@@ -42,6 +42,7 @@ class Common(Configuration):
     PROJECT_APPS = (
         'accounts',
         'base',
+        'projects',
         'review_apps'
     )
 
