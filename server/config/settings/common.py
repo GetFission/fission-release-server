@@ -6,7 +6,7 @@ import sys
 from configurations import Configuration, values
 
 BASE_DIR = os.path.dirname(
-        os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
+    os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, BASE_DIR)
@@ -33,6 +33,7 @@ class Common(Configuration):
     )
 
     VENDOR_APPS = (
+        'corsheaders',
         'rest_framework',
         'knox',
         'django_extensions'
@@ -48,6 +49,7 @@ class Common(Configuration):
     INSTALLED_APPS = DJANGO_APPS + VENDOR_APPS + PROJECT_APPS
 
     MIDDLEWARE_CLASSES = (
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.middleware.common.CommonMiddleware',
@@ -57,6 +59,12 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.common.CommonMiddleware'
+    )
+
+    # TODO - set cors origin whitelist for development/production
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:8080',
+        'localhost:8000'
     )
 
     TEMPLATES = [
@@ -138,7 +146,7 @@ class Common(Configuration):
         'formatters': {
             'verbose': {
                 'format': '%(levelname)s %(asctime)s %(module)s '
-                          '%(process)d %(thread)d %(message)s'
+                '%(process)d %(thread)d %(message)s'
             },
         },
         'handlers': {
