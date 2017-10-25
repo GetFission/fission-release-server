@@ -20,7 +20,7 @@ class ReviewAppsTestCase(APITestCase):
                  "pull_request_number": "33",
                  "api_key": str(self.project.api_key)
         }
-        resp = self.client.post('/review-apps/', valid_post_data)
+        resp = self.client.post('/api/v1/review-apps/', valid_post_data)
         assert resp.status_code == 201
         assert resp.status_text == 'Created'
 
@@ -35,14 +35,14 @@ class ReviewAppsTestCase(APITestCase):
 
         invalid_post_data = valid_post_data
         invalid_post_data.pop('api_key')
-        resp = self.client.post('/review-apps/', invalid_post_data)
+        resp = self.client.post('/api/v1/review-apps/', invalid_post_data)
         assert resp.status_code == 400
         assert resp.status_text == 'Bad Request'
         assert resp.json() == {'api_key': ['This field is required.']}
 
         invalid_post_data = valid_post_data
         invalid_post_data['api_key'] = '123'
-        resp = self.client.post('/review-apps/', invalid_post_data)
+        resp = self.client.post('/api/v1/review-apps/', invalid_post_data)
         assert resp.status_code == 400
         assert resp.status_text == 'Bad Request'
         assert resp.json() == {'api_key': ['Improperly formatted API KEY format']}
