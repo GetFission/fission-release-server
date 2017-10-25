@@ -1,5 +1,3 @@
-import uuid
-
 from django.db import models
 from django_extensions.db import models as dj_models
 
@@ -22,6 +20,8 @@ class ReviewAppBuild(dj_models.TimeStampedModel):
         ('travis', 'travis'),
         ('teamcity', 'teamcity'),
         ('jenkins', 'jenkins'),
+        ('local', 'local'),
+        ('N/A', 'N/A'),
     )
     ci = models.CharField(max_length=50, choices=CI_CHOICES)
 
