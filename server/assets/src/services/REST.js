@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 class REST {
   constructor (url) {
-    this.url = (url || 'http://localhost:8000')
+    this.url = ''
+    if (process.env.NODE_ENV === 'development') this.url = 'http://localhost:8000'
     this.reviewAppsUrl = this.url + '/review-apps'
   }
 

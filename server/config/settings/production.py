@@ -12,6 +12,9 @@ class Production(common.Common):
     # TODO: n a real production server this should have a proper url
     ALLOWED_HOSTS = ['*']
 
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = values.SecreteValue()
+
     DATABASES = values.DatabaseURLValue()
 
     # TODO fix

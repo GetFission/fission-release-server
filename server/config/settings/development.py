@@ -24,6 +24,11 @@ class Development(common.Common):
     #     'django_rest_logger.handlers.rest_exception_handler'
     # )
 
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:8080',
+        'localhost:8000'
+    )
+
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': True,

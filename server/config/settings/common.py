@@ -61,12 +61,6 @@ class Common(Configuration):
         'django.middleware.common.CommonMiddleware'
     )
 
-    # TODO - set cors origin whitelist for development/production
-    CORS_ORIGIN_WHITELIST = (
-        'localhost:8080',
-        'localhost:8000'
-    )
-
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
