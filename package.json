@@ -1,0 +1,19 @@
+{
+  "name": "staging-electron-fission",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/Seedstars/django-react-redux-base.svg?branch=master)](https://travis-ci.org/Seedstars/django-react-redux-base)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/simplyahmazing/electron-fission.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/simplyahmazing/electron-fission/issues"
+  },
+  "homepage": "https://gitlab.com/simplyahmazing/electron-fission#README"
+}
