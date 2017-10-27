@@ -37,6 +37,10 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
             'pull_request_number'
         )
 
+    def get_queryset(self):
+        project_slug = self.request.project_slug
+        return models.ReviewAppBuild.filter(project__slug=project_slug)
+
     def create(self, validated_data):
         api_key = validated_data.pop('api_key')
         project = project_models.Project.objects.get(api_key=api_key)
