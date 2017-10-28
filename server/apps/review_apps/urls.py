@@ -6,8 +6,9 @@ from review_apps import views
 
 
 urlpatterns = [
-    url(r'^(?P<pk>[0-9]+)/$', views.ReviewAppBuildDetail.as_view()),
-    url(r'^$', views.ReviewAppBuildList.as_view()),
+    url(r'^(?P<project_slug>.*)/(?P<pk>[0-9]+)/$', views.ReviewAppBuildDetail.as_view()),
+    url(r'^ping/$', views.ReviewAppBuildCreateView.as_view()),
+    url(r'^(?P<project_slug>.*)/$', views.ReviewAppBuildListView.as_view()),
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])

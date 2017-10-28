@@ -17,7 +17,7 @@ def validate_api_key(api_key):
     raise serializers.ValidationError('Invalid API KEY')
 
 
-class ReviewAppBuildSerializer(serializers.ModelSerializer):
+class ReviewAppBuildCreateSerializer(serializers.ModelSerializer):
     api_key = serializers.CharField(write_only=True, max_length=255,  validators=[validate_api_key])
     created = serializers.DateTimeField(read_only=True)
     class Meta:
@@ -37,10 +37,6 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
             'pull_request_number'
         )
 
-    def get_queryset(self):
-        project_slug = self.request.project_slug
-        return models.ReviewAppBuild.filter(project__slug=project_slug)
-
     def create(self, validated_data):
         api_key = validated_data.pop('api_key')
         project = project_models.Project.objects.get(api_key=api_key)
@@ -48,3 +44,27 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
         build = models.ReviewAppBuild.objects.create(**validated_data)
         return build
 
+
+class ReviewAppBuildListSerializer(serializers.ModelSerializer):
+    api_key = serializers.CharField(
+        write_only=True, max_length=255,  validators=[validate_api_key]
+    )
+    created = serializers.DateTimeField(read_only=True)
+    project_slug = serializers.ReadOnlyField(source='project.slug')
+    class Meta:
+        model = models.ReviewAppBuild
+        fields = (
+            'api_key',
+            'app_version',
+            'branch_name',
+            'build_url',
+            'ci',
+            'ci_job_id',
+            'commit_hash',
+            'created',
+            'id',
+            'project',
+            'project_slug',
+            'platform',
+            'pull_request_number'
+        )
