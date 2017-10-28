@@ -9,18 +9,15 @@
             <div class="subcontainer">
               <h2 class="subtitle is-4">
                 <div>
-                  <span class="icon has-text-info"><i class="fa fa-check-square"></i></span>
-                  &#10004;
+                  <span class="icon"><i class="fa fa-check"></i></span>
                   Advanced release strategies
                 </div>
                 <div>
-                  <span class="icon has-text-info"><i class="fa fa-check"></i></span>
-                  &#10004;
+                  <span class="icon"><i class="fa fa-check"></i></span>
                   Simple release rollbacks
                 </div>
                 <div>
-                  <span class="icon has-text-info"><i class="fa fa-check"></i></span>
-                  &#10004;
+                  <span class="icon"><i class="fa fa-check"></i></span>
                   Powerful release analytics
                 </div>
               </h2>
