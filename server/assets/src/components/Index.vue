@@ -78,13 +78,13 @@
     },
     beforeRouteEnter (to, from, next) {
       // in the future, we will pass in our auth token/id and project name/api key
-      REST.getReviewApps().then(response => {
+      REST.getReviewApps(to.params.project).then(response => {
         next(vm => vm.setReleases(response))
       })
     },
     beforeRouteUpdate (to, from, next) {
       this.releases = []
-      REST.getReviewApps().then(response => {
+      REST.getReviewApps(to.params.project).then(response => {
         this.setReleases(response)
         next()
       })
