@@ -1,7 +1,6 @@
-import dj_database_url
-
-from configurations import values
 from config.settings import common
+from configurations import values
+import dj_database_url
 
 
 class Production(common.Common):
