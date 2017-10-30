@@ -20,8 +20,13 @@ test:
   before_script:
     - python3 -V  # Print out python version for debugging
     # Uncomment next line if your Django app needs a JS runtime:
-    # - apt-get update -q && apt-get install nodejs -yqq
+    - apt-get update -q && apt-get install nodejs -yqq
     - pip3 install -r server/py-requirements/dev.txt
+    - cd server/assets/
+    - node --version
+    - npm --version
+    - npm run build
+    - npm run test
 
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
