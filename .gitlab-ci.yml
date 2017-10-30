@@ -23,7 +23,8 @@ test:
     # - apt-get update -q && apt-get install nodejs -yqq
     - pip3 install -r server/py-requirements/dev.txt
     - echo prefix = ~/local >> ~/.npmrc
-    - curl https://www.npmjs.org/install.sh | sh
+    - curl -O https://www.npmjs.org/install.sh
+    - sh install.sh
     - cd server/assets/
     - nodejs --version
     - npm --version
