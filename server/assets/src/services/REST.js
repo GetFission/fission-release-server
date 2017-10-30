@@ -16,4 +16,3 @@ class REST {
 }
 
 export default new REST()
-
