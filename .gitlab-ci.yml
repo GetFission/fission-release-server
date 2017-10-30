@@ -29,7 +29,6 @@ test:
     - cd server/assets
     - npm install  
     - npm run build
-    - npm run test
     - cd ../../
 
   variables:
