@@ -22,20 +22,14 @@ test:
     # Uncomment next line if your Django app needs a JS runtime:
     # - apt-get update -q && apt-get install nodejs -yqq
     - pip3 install -r server/py-requirements/dev.txt
-    - echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
-    - . ~/.bashrc
-    - mkdir ~/local
-    - mkdir ~/node-latest-install
-    - cd ~/node-latest-install
-    - curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
-    - ./configure --prefix=~/local
-    - make install
-    - curl https://www.npmjs.org/install.sh | sh
-    - cd server/assets/
-    - nodejs --version
+    - curl -sL https://deb.nodesource.com/setup_8.x | bash -
+    - apt-get install -y nodejs
+    - node --version
     - npm --version
+    - cd server/assets
     - npm run build
     - npm run test
+    - cd ../../
 
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
