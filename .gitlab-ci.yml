@@ -22,7 +22,8 @@ test:
     # Uncomment next line if your Django app needs a JS runtime:
     # - apt-get update -q && apt-get install nodejs -yqq
     - pip3 install -r server/py-requirements/dev.txt
-    - curl -sL https://deb.nodesource.com/setup_8.x | bash - apt-get install -y nodejs
+    - echo prefix = ~/local >> ~/.npmrc
+    - curl https://www.npmjs.org/install.sh | sh
     - cd server/assets/
     - nodejs --version
     - npm --version
