@@ -23,7 +23,7 @@ test:
     - apt-get update -q && apt-get install nodejs -yqq
     - pip3 install -r server/py-requirements/dev.txt
     - cd server/assets/
-    - node --version
+    - nodejs --version
     - npm --version
     - npm run build
     - npm run test
