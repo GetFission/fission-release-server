@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from projects import models
+
+class ProjectAdmin(admin.ModelAdmin):
+    fields = ['name', 'rms_url', 'slug', 'api_key']
+    readonly_fields = ['slug', 'api_key']
+
+admin.site.register(models.Project, ProjectAdmin)

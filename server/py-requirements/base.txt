@@ -34,3 +34,6 @@ waitress==1.1.0
 
 # CORS
 django-cors-headers==2.1.0
+
+# Models
+django-autoslug==1.9.3

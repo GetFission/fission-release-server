@@ -13,7 +13,7 @@ export default new Router({
       component: Welcome
     },
     {
-      path: '/index',
+      path: '/review-apps/:project',
       name: 'Index',
       component: Index
     }
