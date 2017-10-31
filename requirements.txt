@@ -1,1 +1,1 @@
--r server/py-requirements/prod.txt
+-r py-requirements/prod.txt

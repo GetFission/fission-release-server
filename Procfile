@@ -1,1 +1,1 @@
-web: cd server && waitress-serve --port=$PORT config.wsgi:application
+web: waitress-serve --port=$PORT config.wsgi:application
