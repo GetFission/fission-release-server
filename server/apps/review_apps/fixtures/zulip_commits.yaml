@@ -1,0 +1,159 @@
+- model: projects.Project
+  pk: 1
+  fields:
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    rms_url: 'https://github.com/getfission'
+    name: 'zulip'
+    slug: 'zulip'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 1
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'darwin'
+    ci: 'travis'
+    app_version: '0.8'
+    branch_name: 'master'
+    commit_hash: 'g7Wj95'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868401'
+    pull_request_number: '6'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 2
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'darwin'
+    ci: 'travis'
+    app_version: '0.8'
+    branch_name: 'master'
+    commit_hash: 'g7Wj95'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868401'
+    pull_request_number: '6'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 3
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'linux64'
+    ci: 'travis'
+    app_version: '0.8'
+    branch_name: 'master'
+    commit_hash: 'g7Wj95'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868402'
+    pull_request_number: '6'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 3
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'win64'
+    ci: 'appveyor'
+    app_version: '0.8'
+    branch_name: 'master'
+    commit_hash: 'g7Wj95'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868402'
+    pull_request_number: '6'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 4
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'darwin'
+    ci: 'travis'
+    app_version: '0.8.1'
+    branch_name: 'hotfix'
+    commit_hash: 'h8Fj0k'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868403'
+    pull_request_number: '7'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 5
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'linux'
+    ci: 'travis'
+    app_version: '0.8.1'
+    branch_name: 'hotfix'
+    commit_hash: 'h8Fj0k'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868404'
+    pull_request_number: '7'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 6
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'win64'
+    ci: 'appveyor'
+    app_version: '0.8.1'
+    branch_name: 'hotfix'
+    commit_hash: 'h8Fj0k'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868405'
+    pull_request_number: '7'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 7
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'darwin'
+    ci: 'travis'
+    app_version: '1.0'
+    branch_name: 'develop'
+    commit_hash: '02n8h'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868406'
+    pull_request_number: '7'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 8
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'linux'
+    ci: 'travis'
+    app_version: '1.0'
+    branch_name: 'develop'
+    commit_hash: '02n8h'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868407'
+    pull_request_number: '7'
+
+- model: review_apps.ReviewAppBuild 
+  pk: 9
+  fields:
+    project: 1
+    created: '2017-10-31 11:52:04.027734' 
+    modified: '2017-10-31 11:52:04.027734' 
+    platform: 'win64'
+    ci: 'appveyor'
+    app_version: '1.0'
+    branch_name: 'develop'
+    commit_hash: '02n8h'
+    build_url: 'electron-builder-test-fission.s3.amazonaws.com'
+    ci_job_id: '293868407'
+    pull_request_number: '7'
+
