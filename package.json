@@ -7,11 +7,11 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
-    "build": "node assets/build/build.js",
-    "unit": "cross-env BABEL_ENV=test karma start assets/test/unit/karma.conf.js --single-run",
-    "e2e": "node assets/test/e2e/runner.js",
+    "build": "cd assets && node build/build.js",
+    "unit": "cd assets && cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "e2e": "cd assets && node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
+    "lint": "cd assets && eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "postinstall": "if [ $BUILD_ASSETS ]; then npm run build; fi"
   },
   "dependencies": {

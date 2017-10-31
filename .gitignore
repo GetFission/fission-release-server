@@ -49,4 +49,4 @@ scripts/
 .node-version
 *.env
 
-server/static/*
+static/*
