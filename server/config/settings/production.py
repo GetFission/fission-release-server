@@ -1,6 +1,6 @@
-from configurations import values
-
 from config.settings import common
+from configurations import values
+import dj_database_url
 
 
 class Production(common.Common):
@@ -12,7 +12,12 @@ class Production(common.Common):
     # TODO: n a real production server this should have a proper url
     ALLOWED_HOSTS = ['*']
 
-    DATABASES = values.DatabaseURLValue()
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = values.SecretValue()
+
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
 
     # TODO fix
     # REST_FRAMEWORK['EXCEPTION_HANDLER'] = 'django_rest_logger.handlers.rest_exception_handler'  # NOQA (ignore all errors on this line)
