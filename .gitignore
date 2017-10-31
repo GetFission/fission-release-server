@@ -50,3 +50,4 @@ scripts/
 *.env
 
 static/*
+!static/.gitkeep
