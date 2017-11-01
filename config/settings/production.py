@@ -7,7 +7,7 @@ class Production(common.Common):
     DEBUG = False
     TEMPLATE_DEBUG = DEBUG
 
-    PAGE_CACHE_SECONDS = 60
+    PAGE_CACHE_SECONDS = values.IntegerValue(1)
 
     # TODO: n a real production server this should have a proper url
     ALLOWED_HOSTS = ['*']
