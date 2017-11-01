@@ -26,13 +26,18 @@ class Production(common.Common):
     # ########### Sentry configuration
 
     # Change this to proper sentry url.
-    RAVEN_CONFIG = {
-        'dsn': '',
-    }
+    # RAVEN_CONFIG = {
+    #     'dsn': '',
+    # }
 
     # INSTALLED_APPS = INSTALLED_APPS + (  # NOQA (ignore all errors on this line)
     #     'raven.contrib.django.raven_compat',
     # )
  
-    DEFAULT_LOGGER = 'raven'
+    # DEFAULT_LOGGER = 'raven'
+    DEFAULT_LOGGER = 'django_rest_logger'
+
+    LOGGER_EXCEPTION = property(lambda x: x.DEFAULT_LOGGER)
+    LOGGER_ERROR = property(lambda x: x.DEFAULT_LOGGER)
+    LOGGER_WARNING = property(lambda x: x.DEFAULT_LOGGER)
 
