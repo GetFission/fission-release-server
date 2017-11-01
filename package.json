@@ -12,7 +12,7 @@
     "e2e": "cd assets && node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "cd assets && eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "postinstall": "if [ $BUILD_ASSETS ]; then rm -rf node_modules && npm install && npm run build; fi"
+    "postinstall": "if [ $BUILD_ASSETS ]; then npm run build; fi"
   },
   "dependencies": {
     "bulma": "^0.6.0",
