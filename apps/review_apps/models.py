@@ -34,15 +34,7 @@ class ReviewAppBuild(dj_models.TimeStampedModel):
         related_name='builds'
     )
     api_key = models.UUIDField(blank=True, null=True)
-
-    PLATFORM_CHOICES = (
-        ('darwin', 'darwin'),
-        ('linux32', 'linux32'),
-        ('linux64', 'linux64'),
-        ('win32', 'win32'),
-        ('win64', 'win64')
-    )
-    platform = models.CharField(max_length=10, choices=PLATFORM_CHOICES)
+    platform = models.CharField(max_length=10, blank=True, null=True)
 
     CI_CHOICES = (
         ('appveyor', 'appveyor'),
