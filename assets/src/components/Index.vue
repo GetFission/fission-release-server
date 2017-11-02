@@ -4,35 +4,34 @@
       <div class="card-header">
         <div class="card-header-title">
           Releases for &nbsp;
-          <span id="project-name">Zulip</span>
+          <span id="project-name">{{ $route.params.project }}</span>
         </div>
       </div>
 
       <div class="card-content">
-        <div v-for="(files, branch) in branchGroups" class="table-container">
+        <div v-for="branch in branches" class="table-container">
           <span class="tag is-info is-medium">
             <span class="icon">
               <i class="fa fa-code-fork"></i>
             </span>
-            {{ branch }}
+            {{ branch.name }}
           </span>
           <table class="table is-striped is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <th>Version</th>
-                <th>Platform</th>
                 <th>Commit</th>
-                <th>Build</th>
-                <th>Image</th>
+                <th><i class="fa fa-apple"></i></th>
+                <th><i class="fa fa-windows"></i></th>
+                <th><i class="fa fa-linux"></i></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="file in files">
-                <td>{{ file.app_version }}</td>
-                <td>{{ file.platform }}</td>
-                <td><a href="#">{{ file.commit_hash }}</a></td>
-                <td><a href="https://gitlab.com/simplyahmazing/electron-fission">{{ file.ci_job_id }}</a></td>
-                <td><a href="#">S3</a></td>
+              <tr v-for="commit in branch.commits">
+                <td class="commit-hash"><a href="#">{{ commit.commit_hash }}</a></td>
+                <td v-for="platform in ['mac', 'win', 'linux']">
+                  <div><a v-if="buildURL(commit.builds, platform)" :href="buildURL(commit.builds, platform)">Build</a></div>
+                  <div><a v-if="buildURL(commit.builds, platform)" :href="buildURL(commit.builds, platform)">CI Logs</a></div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -51,41 +50,34 @@
     data: function () {
       return {
         selectedGroup: 'All',
-        releases: []
+        branches: []
       }
     },
     methods: {
-      selectGroup (name) {
-        this.selectedGroup = name
+      setBranches (branches) {
+        this.branches = branches
       },
-      tabClass (name) {
-        return name === this.selectedGroup ? 'is-active' : ''
+      buildURL (commit, platform) {
+        const build = this.build(commit, platform)
+        return build ? build.build_url : false
       },
-      setReleases (releases) {
-        this.releases = releases
-      }
-    },
-    computed: {
-      branchGroups () {
-        const uniqueBranches = [...new Set(this.releases.map(build => build.branch_name))]
-        const branchBuilds = {}
-        uniqueBranches.map(branch => {
-          const builds = this.releases.filter(build => build.branch_name === branch)
-          branchBuilds[branch] = builds
-        })
-        return branchBuilds
+      build (commit, platform) {
+        console.log(commit)
+        if (platform === 'mac') return commit.find(build => build.platform === 'darwin')
+        if (platform === 'win') return commit.find(build => build.platform === 'win32' || build.platform === 'win64')
+        if (platform === 'linux') return commit.find(build => build.platform === 'linux32' || build.platform === 'linux64')
       }
     },
     beforeRouteEnter (to, from, next) {
       // in the future, we will pass in our auth token/id and project name/api key
-      REST.getReviewApps(to.params.project).then(response => {
-        next(vm => vm.setReleases(response))
+      REST.getBranches(to.params.project).then(response => {
+        next(vm => vm.setBranches(response))
       })
     },
     beforeRouteUpdate (to, from, next) {
-      this.releases = []
-      REST.getReviewApps(to.params.project).then(response => {
-        this.setReleases(response)
+      this.branches = []
+      REST.getBranches(to.params.project).then(response => {
+        this.setBranches(response)
         next()
       })
     }
@@ -116,5 +108,9 @@
   
   hr {
     margin-top: 0px;
+  }
+
+  table tbody tr td.commit-hash {
+    vertical-align: middle;
   }
 </style>
