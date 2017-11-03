@@ -8,7 +8,7 @@ class REST {
     this.reviewAppsUrl = this.url + 'review-apps'
   }
 
-  getReviewApps (project) {
+  getBranches (project) {
     return Vue.http.get(`${this.reviewAppsUrl}/${project}/`).then(response => {
       return response.body.results
     })
