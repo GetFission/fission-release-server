@@ -64,7 +64,6 @@ class ReviewAppBuildSerializer(serializers.ModelSerializer):
         write_only=True, max_length=255,  validators=[validate_api_key]
     )
     created = serializers.DateTimeField(read_only=True)
-    # project_slug = serializers.ReadOnlyField(source='project.slug')
     class Meta:
         model = models.ReviewAppBuild
         fields = (
@@ -93,28 +92,3 @@ class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Branch
         fields = ('project', 'name', 'commits')
-
-
-# class ReviewAppBuildListSerializer(serializers.ModelSerializer):
-#     api_key = serializers.CharField(
-#         write_only=True, max_length=255,  validators=[validate_api_key]
-#     )
-#     created = serializers.DateTimeField(read_only=True)
-#     project_slug = serializers.ReadOnlyField(source='project.slug')
-#     class Meta:
-#         model = models.ReviewAppBuild
-#         fields = (
-#             'api_key',
-#             'app_version',
-#             'branch_name',
-#             'build_url',
-#             'ci',
-#             'ci_job_id',
-#             'commit_hash',
-#             'created',
-#             'id',
-#             'project',
-#             'project_slug',
-#             'platform',
-#             'pull_request_number'
-#         )
