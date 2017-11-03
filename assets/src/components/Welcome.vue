@@ -1,8 +1,9 @@
 <template>
   <div id="welcome">
-      <section class="hero is-fullheight">
-        <div class="hero-body columns">
-          <div class="column is-5 is-offset-1">
+    <section class="hero is-fullheight">
+      <div class="hero-body columns is-multiline is-centered is-gapless">
+        <div class="column is-5">
+          <div id="description">
             <h1 class="title is-2">
               Electron releases made <span id="simple">simple</span>.
             </h1>
@@ -23,27 +24,56 @@
               </h2>
             </div>
           </div>
-          <div class="column is-5">
-            <div class="browser-mockup">
-              <div class="browser-mockup-background"></div>
-            </div>
+        </div>
+        <div class="column is-2"></div>
+        <div class="column is-5">
+          <div class="browser-mockup">
+            <div class="browser-mockup-background"></div>
           </div>
         </div>
-      </section>
+        <div class="column is-4">
+          <div class="field is-grouped">
+            <p class="control is-expanded">
+              <input ref="email" class="input extra-padding" type="text" placeholder="Enter your email">
+            </p>
+            <p class="control">
+              <a @click="collectEmail" class="button extra-padding">
+                Sign me up 
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+  import REST from '../services/REST'
+
   export default {
-    name: 'Welcome'
+    name: 'Welcome',
+    methods: {
+      collectEmail () {
+        REST.collectEmail(this.$refs.email.value)
+      }
+    }
   }
 </script>
 
 <style scoped lang="scss">
   @import '~bulma/bulma.sass';
 
+  .extra-padding {
+    padding: 25px;
+  }
+
   #welcome h1, #welcome h2 {
     color: white;
+  }
+
+  #description {
+    float: right;
   }
 
   #simple {
@@ -60,6 +90,7 @@
     position: relative;
     border-radius: 3px 3px 0 0;
     max-width: 500px;
+    min-width: 250px;
     width: 100%;
   }
 
