@@ -4,6 +4,7 @@ from review_apps import models, serializers
 
 
 class ReviewAppBuildCreateView(generics.CreateAPIView):
+    authentication_classes = ()  # set to empty to avoid CSRF
     queryset = models.ReviewAppBuild.objects.all()
     serializer_class = serializers.ReviewAppBuildCreateSerializer
 
