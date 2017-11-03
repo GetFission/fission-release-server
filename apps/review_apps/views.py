@@ -9,15 +9,14 @@ class ReviewAppBuildCreateView(generics.CreateAPIView):
 
 
 class ReviewAppBuildListView(generics.ListAPIView):
-    queryset = models.ReviewAppBuild.objects.all()
-    serializer_class = serializers.ReviewAppBuildListSerializer
+    serializer_class = serializers.BranchSerializer
 
     def get_queryset(self):
         project_slug = self.kwargs['project_slug']
-        return models.ReviewAppBuild.objects.filter(project__slug=project_slug)
+        return models.Branch.objects.filter(project__slug=project_slug)
 
 
 class ReviewAppBuildDetail(generics.RetrieveUpdateAPIView):
     queryset = models.ReviewAppBuild.objects.all()
-    serializer_class = serializers.ReviewAppBuildListSerializer
+    serializer_class = serializers.ReviewAppBuildSerializer
 

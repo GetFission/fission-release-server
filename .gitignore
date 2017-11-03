@@ -51,3 +51,4 @@ scripts/
 
 static/*
 !static/.gitkeep
+!static/index.html
