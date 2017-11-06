@@ -16,7 +16,7 @@ class REST {
   }
 
   collectEmail (email) {
-    return Vue.http.get(`${this.collectEmailUrl}/${email}`).then(response => {
+    return Vue.http.post(`${this.collectEmailUrl}/${email}`).then(response => {
       return response.body
     })
   }
