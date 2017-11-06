@@ -187,6 +187,21 @@ class Common(Configuration):
                 'handlers': ['console', 'sentry'],
                 'propagate': False,
             },
+            'apps.base': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
+            'apps.projects': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
+            'apps.review_apps': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
         },
     }
 
