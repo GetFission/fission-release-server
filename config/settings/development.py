@@ -2,7 +2,7 @@ from config.settings import common
 
 
 class Development(common.Common):
-    ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['*']
 
     DEBUG = True
 

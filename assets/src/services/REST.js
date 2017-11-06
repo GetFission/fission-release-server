@@ -6,7 +6,7 @@ class REST {
     this.url = `/api/${version}/`
     if (process.env.NODE_ENV === 'development') this.url = `http://localhost:8000/api/${version}/`
     this.reviewAppsUrl = this.url + 'review-apps'
-    this.collectEmailUrl = this.url + 'email'
+    this.collectEmailUrl = this.url + 'getdata/collect-email'
   }
 
   getBranches (project) {
@@ -16,7 +16,7 @@ class REST {
   }
 
   collectEmail (email) {
-    return Vue.http.post(`${this.collectEmailUrl}/${email}`).then(response => {
+    return Vue.http.post(`${this.collectEmailUrl}/`, { email }).then(response => {
       return response.body
     })
   }
