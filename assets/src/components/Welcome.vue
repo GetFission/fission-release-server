@@ -64,9 +64,10 @@
 <style scoped lang="scss">
   @import '~bulma/bulma.sass';
 
-  .extra-padding {
+/*  .extra-padding {
     padding: 25px;
-  }
+    }
+*/
 
   #welcome h1, #welcome h2 {
     color: white;
