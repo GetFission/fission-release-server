@@ -218,6 +218,7 @@ class Development(Common):
         'localhost:8000'
     )
 
+
 class CI(Common):
     DEBUG = False
     TEMPLATE_DEBUG = DEBUG

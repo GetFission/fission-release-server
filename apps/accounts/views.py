@@ -1,5 +1,6 @@
+import logging
+
 from django.shortcuts import get_object_or_404
-from django_rest_logger import log
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
 from rest_framework import status
@@ -12,6 +13,8 @@ from rest_framework.response import Response
 from accounts.models import User
 from accounts.serializers import UserRegistrationSerializer, UserSerializer
 from lib.utils import AtomicMixin
+
+log = logging.getLogger()
 
 
 class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
@@ -51,8 +54,9 @@ class UserConfirmEmailView(AtomicMixin, GenericAPIView):
         if user.confirm_email():
             return Response(status=status.HTTP_200_OK)
 
-        log.warning(message='Email confirmation key not found.',
-                    details={'http_status_code': status.HTTP_404_NOT_FOUND})
+        # log.warning(message='Email confirmation key not found.',
+        #             details={'http_status_code': status.HTTP_404_NOT_FOUND})
+        log.warning('Email confirmation key not found')
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
