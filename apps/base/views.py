@@ -8,6 +8,9 @@ from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+import logging
+
+logger = logging.getLogger('raven')
 
 
 class IndexView(View):
@@ -15,8 +18,11 @@ class IndexView(View):
 
     def get(self, request):
         """Return html for main application page."""
-
         abspath = open(os.path.join(settings.BASE_DIR, 'static/index.html'), 'r')
+        logger.error('There was some crazy error', exc_info=True, extra={
+            # Optionally pass a request and we'll grab any information we can
+            'request': request,
+        })
         return HttpResponse(content=abspath.read())
 
 

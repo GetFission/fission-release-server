@@ -24,18 +24,23 @@ class Production(common.Common):
 
 
     # ########### Sentry configuration
+    RAVEN_DSN = values.URLValue()
+    @property
+    def RAVEN_CONFIG(self):
+        return {
+            'dsn': self.RAVEN_DSN
+        }
 
-    # Change this to proper sentry url.
-    # RAVEN_CONFIG = {
-    #     'dsn': '',
-    # }
-
+    # @property
+    # def INSTALLED_APPS(self):
+    #     import pdb; pdb.set_trace()
+    # INSTALLED_APPS = property(lambda x: x.INSTALLED_APPS + ('raven.contrib.django.raven_compat'))
     # INSTALLED_APPS = INSTALLED_APPS + (  # NOQA (ignore all errors on this line)
     #     'raven.contrib.django.raven_compat',
     # )
  
     # DEFAULT_LOGGER = 'raven'
-    DEFAULT_LOGGER = 'django_rest_logger'
+    # DEFAULT_LOGGER = 'django_rest_logger'
 
     LOGGER_EXCEPTION = property(lambda x: x.DEFAULT_LOGGER)
     LOGGER_ERROR = property(lambda x: x.DEFAULT_LOGGER)
