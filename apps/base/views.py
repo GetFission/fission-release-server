@@ -26,8 +26,8 @@ class IndexView(View):
 
 @api_view(['POST'])
 def collect_email(request):
-    email =  request.email
-    models.VisitorEmail.object.create(email=email)
+    email =  request.data['email']
+    models.VisitorEmail.objects.create(email=email)
     data = {'data': 'Email Saved'}
     return Response(data, status=status.HTTP_200_OK)
 
