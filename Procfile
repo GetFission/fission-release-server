@@ -1,2 +1,2 @@
-release: pythonnnnnnnnnnnnnn manage.py migrate
+release: python manage.py migrate
 web: waitress-serve --port=$PORT config.wsgi:application
