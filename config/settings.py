@@ -4,9 +4,11 @@ import os
 import sys
 
 from configurations import Configuration, values
+import dj_database_url
+
 
 BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
+    os.path.dirname(__file__))  # remove /sswmain/settings to get base folder
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, BASE_DIR)
@@ -22,6 +24,11 @@ class Common(Configuration):
 
     ALLOWED_HOSTS = ['']
 
+
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+
     # Application definition
     DJANGO_APPS = (
         'django.contrib.auth',
@@ -34,6 +41,7 @@ class Common(Configuration):
 
     VENDOR_APPS = (
         'corsheaders',
+        'raven.contrib.django.raven_compat',
         'rest_framework',
         'knox',
         'django_extensions'
@@ -129,7 +137,6 @@ class Common(Configuration):
     }
 
     # ####### Logging
-
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': True,
@@ -145,7 +152,7 @@ class Common(Configuration):
         },
         'handlers': {
             'sentry': {
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
             },
             'console': {
@@ -155,9 +162,19 @@ class Common(Configuration):
             }
         },
         'loggers': {
+            # '': {
+            #     'level': 'DEBUG',
+            #     'handlers': ['sentry', 'console'],
+            #     'propogate': False,
+            # },
             'django.db.backends': {
                 'level': 'ERROR',
-                'handlers': ['console'],
+                'handlers': ['sentry', 'console'],
+                'propagate': False,
+            },
+            'django.request': {
+                'handlers': ['sentry', 'console'],
+                'level': 'ERROR',
                 'propagate': False,
             },
             'raven': {
@@ -167,14 +184,70 @@ class Common(Configuration):
             },
             'sentry.errors': {
                 'level': 'DEBUG',
-                'handlers': ['sentry'],
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
+            'apps.base': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
+            'apps.projects': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
+            'apps.review_apps': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
                 'propagate': False,
             },
         },
     }
 
-    DEFAULT_LOGGER = 'console'
 
-    LOGGER_EXCEPTION = DEFAULT_LOGGER
-    LOGGER_ERROR = DEFAULT_LOGGER
-    LOGGER_WARNING = DEFAULT_LOGGER
+class Development(Common):
+    ALLOWED_HOSTS = ['*']
+
+    DEBUG = True
+
+    PAGE_CACHE_SECONDS = 1
+
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:8080',
+        'localhost:8000'
+    )
+
+
+class CI(Common):
+    DEBUG = False
+    TEMPLATE_DEBUG = DEBUG
+
+    PAGE_CACHE_SECONDS = 1
+
+    ALLOWED_HOSTS = ['*']
+
+
+class Staging(Common):
+    pass
+
+
+class Production(Common):
+    DEBUG = False
+    TEMPLATE_DEBUG = DEBUG
+
+    PAGE_CACHE_SECONDS = values.IntegerValue(1)
+
+    # TODO: n a real production server this should have a proper url
+    ALLOWED_HOSTS = values.ListValue(['getfission.com'])
+
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = values.SecretValue()
+
+
+    # ########### Sentry configuration
+    RAVEN_DSN = values.URLValue()
+
+    RAVEN_CONFIG = {
+        'dsn': os.environ.get('RAVEN_DSN')
+    }

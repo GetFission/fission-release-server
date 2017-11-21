@@ -9,6 +9,9 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+import logging
+
+logger = logging.getLogger('apps.base')
 
 
 from base import models
@@ -19,7 +22,6 @@ class IndexView(View):
 
     def get(self, request):
         """Return html for main application page."""
-
         abspath = open(os.path.join(settings.BASE_DIR, 'static/index.html'), 'r')
         return HttpResponse(content=abspath.read())
 
