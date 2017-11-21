@@ -21,7 +21,6 @@ test:
     - python3 -V  # Print out python version for debugging
     - pip3 install -r py-requirements/dev.txt
     - bash tools/install-node.sh
-    - npm install -g npm@5.2.0
     - node --version
     - npm --version
     - npm install
