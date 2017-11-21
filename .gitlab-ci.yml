@@ -21,6 +21,8 @@ test:
     - python3 -V  # Print out python version for debugging
     - pip3 install -r py-requirements/dev.txt
     - bash tools/install-node.sh
+    - export NVM_DIR="$HOME/.nvm"
+    - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     - node --version
     - npm --version
     - npm install
