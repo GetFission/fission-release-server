@@ -20,8 +20,7 @@ test:
   before_script:
     - python3 -V  # Print out python version for debugging
     - pip3 install -r py-requirements/dev.txt
-    - curl -sL https://deb.nodesource.com/setup_8.x | bash -
-    - apt-get install -y nodejs
+    - bash ./tools/intall-node.sh
     - npm install -g npm@5.2.0
     - node --version
     - npm --version
