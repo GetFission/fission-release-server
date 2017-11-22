@@ -21,12 +21,7 @@ test:
     - python3 -V  # Print out python version for debugging
     - pip3 install -r py-requirements/dev.txt
     - bash tools/install-node.sh
-    - export NVM_DIR="$HOME/.nvm"
-    - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    - node --version
-    - npm --version
-    - npm install
-    - npm run build
+    - bash tools/js-build.sh
 
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
