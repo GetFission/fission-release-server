@@ -33,6 +33,7 @@ class Common(Configuration):
     DJANGO_APPS = (
         'django.contrib.auth',
         'django.contrib.contenttypes',
+        'django.contrib.sites',
         'django.contrib.staticfiles',
         'django.contrib.messages',
         'django.contrib.sessions',
@@ -40,15 +41,21 @@ class Common(Configuration):
     )
 
     VENDOR_APPS = (
+        'allauth',
+        'allauth.account',
         'corsheaders',
+        'django_extensions',
         'raven.contrib.django.raven_compat',
+        'rest_auth',
         'rest_framework',
+        'rest_framework.authtoken',
         'knox',
-        'django_extensions'
+        'rest_auth.registration',
     )
 
+    SITE_ID = 1
+
     PROJECT_APPS = (
-        'accounts',
         'base',
         'projects',
         'review_apps'
@@ -99,8 +106,6 @@ class Common(Configuration):
 
     USE_TZ = True
 
-    # TODO (Ahmed): investigate auth0
-    AUTH_USER_MODEL = 'accounts.User'
     ACCOUNT_ACTIVATION_DAYS = 7  # days
 
     STATIC_URL = '/static/'
