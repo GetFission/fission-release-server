@@ -1,8 +1,7 @@
 import factory
 from django.test import TestCase
 
-from accounts.models import User
-
+from django.contrib.auth.models import User
 
 class UserFactory(factory.DjangoModelFactory):
     first_name = 'John'
