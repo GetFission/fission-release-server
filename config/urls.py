@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.decorators.cache import cache_page
+from django.views.generic import TemplateView, RedirectView
 
 from base import views as base_views
 
@@ -12,7 +13,15 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+
+    url('^account/', include('allauth.urls')),
+    # TODO: override all auth email templates here...
+
+    # url(r'^email-verification/$',
+    #     TemplateView.as_view(template_name="email_verification.html"),
+    #     name='email-verification'),
+
     url(r'^$',
         cache_page(settings.PAGE_CACHE_SECONDS)(base_views.IndexView.as_view()),
         name='index'

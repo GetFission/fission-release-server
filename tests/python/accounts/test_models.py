@@ -21,7 +21,11 @@ class AccountsModelsTests(TestCase):
         self.assertEqual(str(self.user), 'test@test.com')
 
     def test_super_user(self):
-        super_user = User.objects.create_superuser(email='email@test.com')
+        # super_user = User.objects.create_superuser(email='email@test.com')
+        super_user = User.objects.create_superuser(
+            username='email@test.com',
+            email='email@test.com'
+        )
         self.assertEqual(super_user.is_superuser, True)
 
     def test_user(self):

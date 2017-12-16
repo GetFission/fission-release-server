@@ -24,6 +24,9 @@ class Common(Configuration):
 
     ALLOWED_HOSTS = ['']
 
+    ACCOUNT_AUTHENTICATION_METHOD = 'email'
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
 
     DATABASES = {
         'default': dj_database_url.config()
@@ -107,6 +110,8 @@ class Common(Configuration):
     USE_TZ = True
 
     ACCOUNT_ACTIVATION_DAYS = 7  # days
+    ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+    ACCOUNT_EMAIL_REQUIRED =  True
 
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
@@ -215,6 +220,8 @@ class Development(Common):
     ALLOWED_HOSTS = ['*']
 
     DEBUG = True
+
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
     PAGE_CACHE_SECONDS = 1
 
