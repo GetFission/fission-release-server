@@ -35,10 +35,10 @@
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <router-link to="index" class="button">Login</router-link>
+          <div class="button is-link">Login</div>
         </div>
         <div class="navbar-item">
-          <div class="button is-link">Signup</div>
+          <router-link :to="{'name': 'signup'}" class="button is-link">Signup</router-link>
         </div>
       </div>
     </div>

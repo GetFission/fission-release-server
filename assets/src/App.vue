@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <!-- <NavBar></NavBar> -->
+    <NavBar></NavBar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
   import NavBar from './components/NavBar'
+  // import SignUp from './components/SignUp'
 
   export default {
     name: 'app',
