@@ -8,25 +8,39 @@
             <p class="subtitle has-text-grey">Create your new account</p>
             <div class="box">
               <form action="">
+                <div v-for="error in errorResp.non_field_errors">
+                    <p class="help is-danger">{{ error }}</p>
+                  </div>
                 <div class="field">
+                  <label class="label has-text-grey">Email</label>
                   <div class="control">
-                    <input id="email" type="email" class="input is-large" placeholder="Your email">
+                    <input v-model="email" id="email" type="email" class="input is-large" placeholder="user@gmail.com">
+                  </div>
+                  <div v-for="error in errorResp.email">
+                    <p class="help is-danger">{{ error }}</p>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label has-text-grey">Password</label>
+                  <div class="control">
+                    <input v-model="password1" id="password1" type="password" class="input is-large" placeholder="Enter password">
+                  </div>
+                  <div v-for="error in errorResp.password1">
+                    <p class="help is-danger">{{ error }}</p>
                   </div>
                 </div>
 
                 <div class="field">
                   <div class="control">
-                    <input id="password" type="password" class="input is-large" placeholder="Your password">
-                    </div>
+                    <input v-model="password2" id="password2" type="password" class="input is-large" placeholder="Enter password again">
+                  </div>
+                  <div v-for="error in errorResp.password2">
+                    <p class="help is-danger">{{ error }}</p>
+                  </div>
                 </div>
 
-                <div class="field">
-                  <div class="control">
-                    <input id="re_password" type="password" class="input is-large" placeholder="Your password">
-                    </div>
-                </div>
-
-                <a class="button is-block is-info is-large">Submit</a>
+                <a @click="register" class="button is-block is-link is-large">Submit</a>
               </form>
             </div>
 
@@ -43,9 +57,38 @@
 
 
 <script>
-import Vue from 'Vue'
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.component('SignUp', {
+  data: function () {
+    return {
+      email: '',
+      password1: '',
+      password2: ''
+      // response: {'email': [], 'password': []}
+    }
+  },
+  computed: {
+    ...mapGetters('user', {
+      state: 'GET_STATE',
+      error: 'GET_ERROR'
+    }),
+    errorResp: function () {
+      return this.$store.state.user.error
+    }
+  },
+  methods: {
+    register: async function () {
+      console.log('registering..', this.email, this.password, this.$store)
+      // debugger
+      await this.$store.dispatch('register', {
+        email: this.email,
+        password1: this.password1,
+        password2: this.password2
+      })
+    }
+  },
   mounted () {
     // alert('got here..')
   }
