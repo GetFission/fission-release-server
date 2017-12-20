@@ -7,41 +7,46 @@
             <h3 class="title has-text-grey">Sign up</h3>
             <p class="subtitle has-text-grey">Create your new account</p>
             <div class="box">
-              <form action="">
-                <div v-for="error in errorResp.non_field_errors">
-                    <p class="help is-danger">{{ error }}</p>
+              <div v-show="!submissionComplete">
+                <form action="">
+                  <div v-for="error in errorResp.non_field_errors">
+                      <p class="help is-danger">{{ error }}</p>
+                    </div>
+                  <div class="field">
+                    <label class="label has-text-grey">Email</label>
+                    <div class="control">
+                      <input v-model="email" id="email" type="email" class="input is-large" placeholder="user@gmail.com">
+                    </div>
+                    <div v-for="error in errorResp.email">
+                      <p class="help is-danger">{{ error }}</p>
+                    </div>
                   </div>
-                <div class="field">
-                  <label class="label has-text-grey">Email</label>
-                  <div class="control">
-                    <input v-model="email" id="email" type="email" class="input is-large" placeholder="user@gmail.com">
-                  </div>
-                  <div v-for="error in errorResp.email">
-                    <p class="help is-danger">{{ error }}</p>
-                  </div>
-                </div>
 
-                <div class="field">
-                  <label class="label has-text-grey">Password</label>
-                  <div class="control">
-                    <input v-model="password1" id="password1" type="password" class="input is-large" placeholder="Enter password">
+                  <div class="field">
+                    <label class="label has-text-grey">Password</label>
+                    <div class="control">
+                      <input v-model="password1" id="password1" type="password" class="input is-large" placeholder="Enter password">
+                    </div>
+                    <div v-for="error in errorResp.password1">
+                      <p class="help is-danger">{{ error }}</p>
+                    </div>
                   </div>
-                  <div v-for="error in errorResp.password1">
-                    <p class="help is-danger">{{ error }}</p>
-                  </div>
-                </div>
 
-                <div class="field">
-                  <div class="control">
-                    <input v-model="password2" id="password2" type="password" class="input is-large" placeholder="Enter password again">
+                  <div class="field">
+                    <div class="control">
+                      <input v-model="password2" id="password2" type="password" class="input is-large" placeholder="Enter password again">
+                    </div>
+                    <div v-for="error in errorResp.password2">
+                      <p class="help is-danger">{{ error }}</p>
+                    </div>
                   </div>
-                  <div v-for="error in errorResp.password2">
-                    <p class="help is-danger">{{ error }}</p>
-                  </div>
-                </div>
 
-                <a @click="register" class="button is-block is-link is-large">Submit</a>
-              </form>
+                  <a @click="register" class="button is-block is-link is-large">Submit</a>
+                </form>
+              </div>
+              <div v-show="submissionComplete">
+                <p class="has-text-gre">Registration successful. Check your email to validate your account</p>
+              </div>
             </div>
 
             <p class="has-text-grey">
@@ -65,8 +70,8 @@ export default Vue.component('SignUp', {
     return {
       email: '',
       password1: '',
-      password2: ''
-      // response: {'email': [], 'password': []}
+      password2: '',
+      submissionComplete: false
     }
   },
   computed: {
@@ -80,13 +85,13 @@ export default Vue.component('SignUp', {
   },
   methods: {
     register: async function () {
-      console.log('registering..', this.email, this.password, this.$store)
-      // debugger
+      // console.log('registering', this.email, this.password, this.$store)
       await this.$store.dispatch('register', {
         email: this.email,
         password1: this.password1,
         password2: this.password2
       })
+      this.submissionComplete = true
     }
   },
   mounted () {
