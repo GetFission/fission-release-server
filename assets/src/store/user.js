@@ -1,5 +1,6 @@
 import UserAPI from '../services/user'
-import { setToken, setHeader, removeHeader, removeToken } from '../util'
+import { setHeader, removeHeader } from '../services/http'
+import { setToken, removeToken } from '../util/token'
 
 const userAPI = new UserAPI()
 
@@ -17,12 +18,11 @@ const user = {
     async authenticate (context, credentials) {
       await userAPI.authenticate(credentials)
         .then((data) => {
-          // context.commit('SET_DATA', data)
-          console.log('success...', data)
+          console.log('got token', data.data.key)
+          context.commit('SET_TOKEN', data.data.key)
         })
         .catch((err) => {
           // TODO: check types of errors possible here...
-          // context.commit('SET_ERROR', err.response.data)
           console.log('fail...', err)
           context.commit('SET_ERROR', err.response.data)
         })
@@ -57,8 +57,6 @@ const user = {
       if (token) {
         context.commit('SET_TOKEN', {auth_token: token})
         await context.dispatch('load')
-
-        // delete token if we get a 401...
       }
     }
   },

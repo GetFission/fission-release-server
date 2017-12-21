@@ -1,17 +1,3 @@
-export function setToken () {
-}
-
-export function setHeader (http, key, value) {
-  http.defaults.headers.common[key] = value
-}
-
-export function removeToken () {
-}
-
-export function removeHeader (http, key) {
-  delete http.defaults.headers.common[key]
-}
-
 // from Django Docs
 export function getCookie (name) {
   var cookieValue = null
