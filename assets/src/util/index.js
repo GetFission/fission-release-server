@@ -1,15 +1,30 @@
 export function setToken () {
-
 }
 
-export function setHeader () {
-
+export function setHeader (http, key, value) {
+  http.defaults.headers.common[key] = value
 }
 
 export function removeToken () {
-
 }
 
-export function removeHeader () {
+export function removeHeader (http, key) {
+  delete http.defaults.headers.common[key]
+}
 
+// from Django Docs
+export function getCookie (name) {
+  var cookieValue = null
+  if (document.cookie && document.cookie !== '') {
+    var cookies = document.cookie.split(';')
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim()
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+        break
+      }
+    }
+  }
+  return cookieValue
 }

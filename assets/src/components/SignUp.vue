@@ -50,8 +50,8 @@
             </div>
 
             <p class="has-text-grey">
-              <a :to="{'name': 'login'}">Login</a> &nbsp;·&nbsp;
-              <a :to="{'name': 'need-help'}">Need help?</a> &nbsp;&nbsp;
+              <router-link :to="{'name': 'login'}">Login</router-link> &nbsp;·&nbsp;
+              <router-link :to="{'name': 'need-help'}">Need help?</router-link> &nbsp;&nbsp;
             </p>
           </div>
         </div>

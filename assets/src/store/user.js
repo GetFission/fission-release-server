@@ -15,15 +15,25 @@ const user = {
   },
   actions: {
     async authenticate (context, credentials) {
-      await userAPI.authenticate(context)
+      await userAPI.authenticate(credentials)
+        .then((data) => {
+          // context.commit('SET_DATA', data)
+          console.log('success...', data)
+        })
+        .catch((err) => {
+          // TODO: check types of errors possible here...
+          // context.commit('SET_ERROR', err.response.data)
+          console.log('fail...', err)
+          context.commit('SET_ERROR', err.response.data)
+        })
 
-      // request (load) user data after authenticating
-      if (context.getters.GET_STATE !== 'handling') {
-        await context.dispatch('load')
-      }
+      // // request (load) user data after authenticating
+      // if (context.getters.GET_STATE !== 'handling') {
+      //   await context.dispatch('load')
+      // }
     },
     async deauthenticate (context, payload) {
-      // await request({ })
+      // TODO: implement
       await userAPI.deauthenticate(context, payload)
     },
     async load (context) {
@@ -41,10 +51,6 @@ const user = {
           // TODO: check types of errors possible here...
           context.commit('SET_ERROR', err.response.data)
         })
-
-      // if (resp.data) {
-      //   context.commit('')
-      // }
     },
     async restore (context, token) {
       // restore token from local storage

@@ -1,16 +1,20 @@
 import axios from 'axios'
+import { getCookie, setHeader } from '../util'
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 console.log('is dev is', IS_DEV)
 
 const http = axios.create({
-  baseURL: IS_DEV ? 'http://localhost:8000/' : undefined,  // eslint-disable-line
+  // baseURL: IS_DEV ? 'http://localhost:8000/' : undefined,  // eslint-disable-line
   // withCredentials: true
 })
 
 class UserAPI {
-  async authenticate (context) {
-    await axios.post(this.url)
+  async authenticate (payload) {
+    setHeader(http, 'X-CSRFToken', getCookie('csrftoken'))
+    const path = '/dj/rest-auth/login/'
+    console.log('login payload', payload)
+    return http.post(path, payload)
   }
 
   async deauthenticate (context, payload) {
@@ -22,8 +26,7 @@ class UserAPI {
   }
 
   register (payload) {
-    const path = 'rest-auth/registration/'
-    console.log('post', payload)
+    const path = '/dj/rest-auth/registration/'
     return http.post(path, payload)
   }
 }
