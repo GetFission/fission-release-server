@@ -85,7 +85,6 @@ export default Vue.component('SignUp', {
   },
   methods: {
     register: async function () {
-      // console.log('registering', this.email, this.password, this.$store)
       await this.$store.dispatch('register', {
         email: this.email,
         password1: this.password1,
@@ -93,9 +92,6 @@ export default Vue.component('SignUp', {
       })
       this.submissionComplete = true
     }
-  },
-  mounted () {
-    // alert('got here..')
   }
 })
 </script>
