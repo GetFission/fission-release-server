@@ -1,3 +1,6 @@
+// eslint-disable import/first
+import { polyfill } from 'es6-promise'
+polyfill()
 import UserAPI from '../services/user'
 import { setHeader, removeHeader } from '../services/http'
 import { setToken, removeToken } from '../util/token'

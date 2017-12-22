@@ -22,7 +22,7 @@ module.exports = function (config) {
     webpackMiddleware: {
       noInfo: true
     },
-    watch: true,
+    // watch: true,
     coverageReporter: {
       dir: './coverage',
       reporters: [
