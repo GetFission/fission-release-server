@@ -24,6 +24,17 @@ class Common(Configuration):
 
     ALLOWED_HOSTS = ['']
 
+    ACCOUNT_AUTHENTICATION_METHOD = 'email'
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+
+    AUTHENTICATION_BACKENDS = (
+        # Needed to login by username in Django admin, regardless of `allauth`
+        "django.contrib.auth.backends.ModelBackend",
+
+        # `allauth` specific authentication methods, such as login by e-mail
+        "allauth.account.auth_backends.AuthenticationBackend",
+    )
 
     DATABASES = {
         'default': dj_database_url.config()
@@ -33,6 +44,7 @@ class Common(Configuration):
     DJANGO_APPS = (
         'django.contrib.auth',
         'django.contrib.contenttypes',
+        'django.contrib.sites',
         'django.contrib.staticfiles',
         'django.contrib.messages',
         'django.contrib.sessions',
@@ -40,15 +52,22 @@ class Common(Configuration):
     )
 
     VENDOR_APPS = (
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
         'corsheaders',
+        'django_extensions',
         'raven.contrib.django.raven_compat',
+        'rest_auth',
         'rest_framework',
+        'rest_framework.authtoken',
         'knox',
-        'django_extensions'
+        'rest_auth.registration',
     )
 
+    SITE_ID = 1
+
     PROJECT_APPS = (
-        'accounts',
         'base',
         'projects',
         'review_apps'
@@ -99,9 +118,9 @@ class Common(Configuration):
 
     USE_TZ = True
 
-    # TODO (Ahmed): investigate auth0
-    AUTH_USER_MODEL = 'accounts.User'
     ACCOUNT_ACTIVATION_DAYS = 7  # days
+    ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+    ACCOUNT_EMAIL_REQUIRED =  True
 
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
@@ -210,6 +229,8 @@ class Development(Common):
     ALLOWED_HOSTS = ['*']
 
     DEBUG = True
+
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
     PAGE_CACHE_SECONDS = 1
 

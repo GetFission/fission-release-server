@@ -49,14 +49,23 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
 // compilation error display
 app.use(hotMiddleware)
 
+// TODO (ahmed): figure out how this works...
 // proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
-  let options = proxyTable[context]
-  if (typeof options === 'string') {
-    options = { target: options }
+// Object.keys(proxyTable).forEach(function (context) {
+//   let options = proxyTable[context]
+//   if (typeof options === 'string') {
+//     options = { target: options }
+//   }
+//   app.use(proxyMiddleware(options.filter || context, options))
+// })
+
+const djProxy = proxyMiddleware({
+  target: 'http://localhost:8000',
+  pathRewrite: {
+    '^/dj/': ''
   }
-  app.use(proxyMiddleware(options.filter || context, options))
 })
+app.use('/dj', djProxy)
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())

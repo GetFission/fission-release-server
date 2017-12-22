@@ -8,6 +8,7 @@ module.exports = {
   },
   env: {
     browser: true,
+    mocha: true
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
