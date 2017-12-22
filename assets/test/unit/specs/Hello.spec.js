@@ -1,11 +1,15 @@
-import Vue from 'vue'
-import HelloWorld from '@/components/HelloWorld'
+/* eslint no-unused-expressions: 0 */
 
-describe('HelloWorld.vue', () => {
+import Vue from 'vue'
+import Login from '@/components/Login'
+
+import { expect } from 'chai'
+
+describe('Login.vue', () => {
   it('should render correct contents', () => {
-    const Constructor = Vue.extend(HelloWorld)
+    const Constructor = Vue.extend(Login)
     const vm = new Constructor().$mount()
-    expect(vm.$el.querySelector('.hello h1').textContent)
-      .to.equal('Welcome to Your Vue.js App')
+    expect(vm.$el.querySelector('#email')).to.exist
+    expect(vm.$el.querySelector('#password')).to.exist
   })
 })
