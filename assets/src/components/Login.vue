@@ -74,8 +74,7 @@ export default Vue.component('Login', {
         email: this.email,
         password: this.password
       })
-      console.log('welcome back')
-      // TODO: redirect user to dashboard
+      this.$router.push({ name: 'dashboard' })
     }
   }
 })
