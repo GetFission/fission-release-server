@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import Welcome from '@/components/Welcome'
 import SignUp from '@/components/SignUp'
 import Login from '@/components/Login'
+import Dashboard from '@/views/Dashboard'
 
 Vue.use(Router)
 
@@ -18,6 +19,12 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/d',
+      name: 'dashboard',
+      component: Dashboard,
+      children: []
     },
     {
       path: '/',

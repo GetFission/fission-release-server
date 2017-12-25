@@ -2,6 +2,7 @@
   <div id="app">
     <NavBar></NavBar>
     <router-view></router-view>
+    <div class="home is-fullheight"></div>
   </div>
 </template>
 
@@ -20,7 +21,6 @@
   @import '~bulma/bulma.sass';
 
   #app {
-    background-image: linear-gradient(140deg, #209cee 0%, $blue 100%);
     min-height: 100vh;
   }
 </style>

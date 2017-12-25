@@ -69,6 +69,10 @@
     }
 */
 
+  #welcome {
+    background: linear-gradient(140deg, #209cee 0%, $blue 100%);
+  }
+
   #welcome h1, #welcome h2 {
     color: white;
   }

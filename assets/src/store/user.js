@@ -23,6 +23,7 @@ const user = {
         .then((data) => {
           console.log('got token', data.data.key)
           context.commit('SET_TOKEN', data.data.key)
+          context.commit('SET_DATA', {email: credentials.email})
         })
         .catch((err) => {
           // TODO: check types of errors possible here...
@@ -38,6 +39,12 @@ const user = {
     async deauthenticate (context, payload) {
       // TODO: implement
       await userAPI.deauthenticate(context, payload)
+        .then((data) => {
+          context.commit('SET_DATA', {})
+        })
+        .catch((err) => {
+          console.log('error... deauthenticating', err)
+        })
     },
     async load (context) {
       // await REST.getData()

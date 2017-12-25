@@ -1,0 +1,41 @@
+<template>
+  <div id="dashboard">
+    <div class="hero is-fullheight">
+      <div id="dashboard" class="hero-body is-fullheight">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-2">
+              <dashboard-sidebar></dashboard-sidebar>
+            </div>
+            <div class="column dashboard-body">
+              foo bar...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import Vue from 'vue'
+import '@/components/DashboardSidebar'
+
+export default Vue.component('dashboard', {
+  name: 'Dashboard'
+})
+</script>
+
+<style lang="scss">
+  .dashboard-body {
+    background-color: red;
+  }
+
+  #dashboard {
+    background: #ECF0F3;
+    align-items: flex-start;
+  }
+</style>
+
+

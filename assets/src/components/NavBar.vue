@@ -34,11 +34,17 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
+        <div v-show="user" class="navbar-item">
+          <p>Welcome, {{ user }}</p>
+        </div>
+        <div v-show="!user" class="navbar-item">
           <router-link :to="{'name': 'login'}" class="button is-link">Login</router-link>
         </div>
-        <div class="navbar-item">
+        <div v-show="!user" class="navbar-item">
           <router-link :to="{'name': 'signup'}" class="button is-link">Signup</router-link>
+        </div>
+        <div v-show="user" class="navbar-item">
+          <a @click="deauthenticate" class="button is-link">Logout</a>
         </div>
       </div>
     </div>
@@ -47,7 +53,18 @@
 
 <script>
   export default {
-    name: 'NavBar'
+    name: 'NavBar',
+    computed: {
+      user () {
+        return this.$store.state.user.data ? this.$store.state.user.data.email : null
+      }
+    },
+    methods: {
+      async deauthenticate () {
+        await this.$store.dispatch('deauthenticate')
+        this.$router.push({name: 'Welcome'})
+      }
+    }
   }
 </script>
 

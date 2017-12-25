@@ -1,7 +1,7 @@
 <template>
-  <div id="signup">
+  <div id="login">
     <section class="hero is-success is-fullheight">
-      <div class="hero-body">
+      <div class="hero-body login-body">
         <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
             <h3 class="title has-text-grey">Login</h3>
@@ -9,8 +9,9 @@
             <div class="box">
               <form action="">
                 <div v-for="error in errorResp.non_field_errors">
-                    <p class="help is-danger">{{ error }}</p>
-                  </div>
+                  <p class="help is-danger">{{ error }}</p>
+                </div>
+
                 <div class="field">
                   <label class="label has-text-grey">Email</label>
                   <div class="control">
@@ -46,7 +47,6 @@
   </div>
 </template>
 
-
 <script>
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
@@ -74,24 +74,28 @@ export default Vue.component('Login', {
         email: this.email,
         password: this.password
       })
-      console.log('welcome back')
-      // TODO: redirect user to dashboard
+      this.$router.push({ name: 'dashboard' })
     }
   }
 })
 </script>
 
 <style lang="scss">
-#signup {
+#login {
   font-family: 'Open Sans', serif;
   font-size: 14px;
   font-weight: 300;
+  align-items: flex-start;
 }
 
 .hero.is-success {
   background: #F2F6FA;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.login-body {
+  align-items: flex-start !important;
 }
 
 .box {
