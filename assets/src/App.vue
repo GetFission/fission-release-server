@@ -24,7 +24,7 @@
   // }
 
   #app {
-    background-image: linear-gradient(140deg, #209cee 0%, $blue 100%);
+    // background-image: linear-gradient(140deg, #209cee 0%, $blue 100%);
     // background: linear-gradient(140deg, #209cee 0%, $blue 100%);
     min-height: 100vh;
   }
