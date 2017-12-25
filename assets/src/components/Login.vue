@@ -1,5 +1,5 @@
 <template>
-  <div id="signup">
+  <div id="login">
     <section class="hero is-success is-fullheight">
       <div class="hero-body">
         <div class="container has-text-centered">
@@ -81,10 +81,11 @@ export default Vue.component('Login', {
 </script>
 
 <style lang="scss">
-#signup {
+#login {
   font-family: 'Open Sans', serif;
   font-size: 14px;
   font-weight: 300;
+  align-items: flex-start;
 }
 
 .hero.is-success {
