@@ -9,7 +9,7 @@
       </li>
     </ul>
     <p class="menu-label">
-      Projects <span class="tag is-info">2</span>
+      Projects <span class="tag is-info project-count">2</span>
     </p>
     <ul class="menu-list">
       <li>
@@ -41,7 +41,7 @@
         </ul>
       </li>
     </ul>
-    <a class="button">Add project</a>
+    <a class="button is-rounded"><i class="fa fa-plus"></i>Add project</a>
     <p class="menu-label">
       Administration
     </p>
@@ -68,7 +68,7 @@ export default Vue.component('dashboard-sidebar', {
 </script>
 
 <style lang="scss">
-  // #dashboard {
+  // #dashbord {
   //   // margin-top: 1rem;
   //   background: #ECF0F3;
   // }
@@ -94,25 +94,29 @@ export default Vue.component('dashboard-sidebar', {
   //   width: 100%;
   //   height: 100%;
   // }
-  // .menu-label {
-  //   color: #8F99A3;
-  //   letter-spacing: 1.3;
-  //   font-weight: 700;
-  // }
-  // .menu-list a {
-  //   color: #0F1D38;
-  //   font-size: 14px;
-  //   font-weight: 700;
-  // }
-  // .menu-list a:hover {
-  //   background-color: transparent;
-  //   color: #276cda;
-  // }
-  // .menu-list a.is-active {
-  //   background-color: transparent;
-  //   color: #276cda;
-  //   font-weight: 700;
-  // }
+  .menu-label {
+    color: #8F99A3;
+    letter-spacing: 1.3;
+    font-weight: 700;
+  }
+  .menu-list a {
+    color: #0F1D38;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .menu-list a:hover {
+    background-color: transparent;
+    color: #276cda;
+  }
+  .menu-list a.is-active {
+    background-color: transparent;
+    color: #276cda;
+    font-weight: 700;
+  }
+
+  .project-count {
+    border-radius: 50%;
+  }
   // .card {
   //   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
   //   margin-bottom: 2rem;

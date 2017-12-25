@@ -1,7 +1,7 @@
 <template>
   <div id="signup">
     <section class="hero is-success is-fullheight">
-      <div class="hero-body">
+      <div class="hero-body signup-body">
         <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
             <h3 class="title has-text-grey">Sign up</h3>
@@ -107,6 +107,10 @@ export default Vue.component('SignUp', {
   background: #F2F6FA;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.signup-body {
+  align-items: flex-start !important;
 }
 
 .box {

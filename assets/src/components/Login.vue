@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <section class="hero is-success is-fullheight">
-      <div class="hero-body">
+      <div class="hero-body login-body">
         <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
             <h3 class="title has-text-grey">Login</h3>
@@ -92,6 +92,10 @@ export default Vue.component('Login', {
   background: #F2F6FA;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.login-body {
+  align-items: flex-start !important;
 }
 
 .box {
