@@ -34,7 +34,7 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
+        <div v-show="user" class="navbar-item">
           <p>Welcome, {{ user }}</p>
         </div>
         <div v-show="!user" class="navbar-item">
@@ -50,7 +50,6 @@
     </div>
   </nav>
 </template>
-
 
 <script>
   export default {
