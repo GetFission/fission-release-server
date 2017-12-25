@@ -9,8 +9,9 @@
             <div class="box">
               <form action="">
                 <div v-for="error in errorResp.non_field_errors">
-                    <p class="help is-danger">{{ error }}</p>
-                  </div>
+                  <p class="help is-danger">{{ error }}</p>
+                </div>
+
                 <div class="field">
                   <label class="label has-text-grey">Email</label>
                   <div class="control">
@@ -45,7 +46,6 @@
     </section>
   </div>
 </template>
-
 
 <script>
 import Vue from 'vue'
