@@ -1,10 +1,8 @@
 import auth0 from 'auth0-js'
 import router from '../router/index.js'
-// import { EventBus } from './EventBus.js'
 
 export default class AuthService {
   authenticated = this.isAuthenticated()
-  // authNotifier = EventBus
 
   constructor () {
     this.login = this.login.bind(this)
@@ -15,23 +13,28 @@ export default class AuthService {
 
   // eslint-disable-next-line new-cap
   auth0 = new auth0.WebAuth({
-    domain: 'electronfission.auth0.com',
-    clientID: 'WjvVSgMgFT4FaetHIYabzuny1DLplb5n',
+    domain: 'electron-fission.auth0.com',
+    clientID: '3noCCWzrdQyu8l2v8yGXuEMHOU5TgLrp',
     redirectUri: 'http://localhost:8080/callback',
-    audience: 'https://electronfission.auth0.com/userinfo',
+    audience: 'https://electron-fission.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile email'
   })
 
   handleAuthentication () {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult)
-        router.replace('Index')
-      } else if (err) {
-        router.replace('/')
-        console.log(err)
-      }
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.setSession(authResult)
+          resolve()
+          // router.replace('Index')
+          // router.push({name: 'dashboard'})
+        } else if (err) {
+          // router.replace('/')
+          // console.log(err)
+          reject(err)
+        }
+      })
     })
   }
 
@@ -43,10 +46,15 @@ export default class AuthService {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    localStorage.setItem('token_payload', JSON.stringify(authResult.idTokenPayload))
+    // this.idTokenPayload = authResult.idTokenPayload
 
     // TODO: use store...
-    this.authNotifier.$emit('authChange', { authenticated: true })
+    // this.authNotifier.$emit('authChange', { authenticated: true })
+  }
 
+  getTokenPayload () {
+    return JSON.parse(localStorage.getItem('token_payload'))
   }
 
   logout () {
@@ -54,12 +62,9 @@ export default class AuthService {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
-    this.userProfile = null
-
-    // TODO: use store
-    this.authNotifier.$emit('authChange', false)
-    // navigate to the home route
-    router.replace('/')
+    localStorage.removeItem('token_payload')
+    this.idTokenPayload = null
+    router.push('/')
   }
 
   isAuthenticated () {

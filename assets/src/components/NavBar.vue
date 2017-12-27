@@ -34,16 +34,13 @@
       </div>
 
       <div class="navbar-end">
-        <div v-show="user" class="navbar-item">
-          <p>Welcome, {{ user }}</p>
+        <div v-show="email" class="navbar-item">
+          <p>Welcome, {{ email }}</p>
         </div>
-        <div v-show="!user" class="navbar-item">
-          <router-link :to="{'name': 'login'}" class="button is-link">Login</router-link>
+        <div v-show="!isAuthenticated" class="navbar-item">
+          <a @click="authenticate" class="button is-link">Login / Signup</a>
         </div>
-        <div v-show="!user" class="navbar-item">
-          <router-link :to="{'name': 'signup'}" class="button is-link">Signup</router-link>
-        </div>
-        <div v-show="user" class="navbar-item">
+        <div v-show="isAuthenticated" class="navbar-item">
           <a @click="deauthenticate" class="button is-link">Logout</a>
         </div>
       </div>
@@ -55,14 +52,27 @@
   export default {
     name: 'NavBar',
     computed: {
-      user () {
-        return this.$store.state.user.data ? this.$store.state.user.data.email : null
+      // user () {
+      //   return this.$store.state.user.data ? this.$store.state.user.data.email : null
+      // }
+      isAuthenticated () {
+        const profile = this.$store.state.user.profile
+        return profile && profile.email
+      },
+      email () {
+        const profile = this.$store.state.user.profile
+        return profile ? profile.email : null
       }
     },
     methods: {
       async deauthenticate () {
         await this.$store.dispatch('deauthenticate')
+        // this.$store.state.user.auth.logout()
         this.$router.push({name: 'Welcome'})
+      },
+      async authenticate () {
+        this.$store.dispatch('authenticate')
+        // this.$store.state.user.auth.login()
       }
     }
   }
