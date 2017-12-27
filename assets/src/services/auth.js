@@ -16,7 +16,7 @@ export default class AuthService {
     domain: 'electron-fission.auth0.com',
     clientID: '3noCCWzrdQyu8l2v8yGXuEMHOU5TgLrp',
     redirectUri: 'http://localhost:8080/callback',
-    audience: 'https://electron-fission.auth0.com/userinfo',
+    audience: 'https://api.electron-fission.com/v1/',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })

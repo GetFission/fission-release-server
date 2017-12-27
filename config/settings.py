@@ -14,6 +14,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, BASE_DIR)
 
 
+from config.auth0 import JWT_AUTH
+
+
 class Common(Configuration):
     BASE_DIR = BASE_DIR
 
@@ -28,13 +31,16 @@ class Common(Configuration):
     ACCOUNT_EMAIL_REQUIRED = True
     ACCOUNT_USERNAME_REQUIRED = False
 
-    AUTHENTICATION_BACKENDS = (
-        # Needed to login by username in Django admin, regardless of `allauth`
-        "django.contrib.auth.backends.ModelBackend",
+    JWT_AUTH = JWT_AUTH
 
-        # `allauth` specific authentication methods, such as login by e-mail
-        "allauth.account.auth_backends.AuthenticationBackend",
-    )
+
+    # AUTHENTICATION_BACKENDS = (
+    #     # Needed to login by username in Django admin, regardless of `allauth`
+    #     "django.contrib.auth.backends.ModelBackend",
+
+    #     # `allauth` specific authentication methods, such as login by e-mail
+    #     "allauth.account.auth_backends.AuthenticationBackend",
+    # )
 
     DATABASES = {
         'default': dj_database_url.config()
@@ -68,6 +74,7 @@ class Common(Configuration):
     SITE_ID = 1
 
     PROJECT_APPS = (
+        'auth0authorization',
         'base',
         'projects',
         'review_apps'
@@ -136,6 +143,7 @@ class Common(Configuration):
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': (),
         'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.BasicAuthentication',
         ),
