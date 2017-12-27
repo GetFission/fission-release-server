@@ -27,11 +27,7 @@ export default class AuthService {
         if (authResult && authResult.accessToken && authResult.idToken) {
           this.setSession(authResult)
           resolve()
-          // router.replace('Index')
-          // router.push({name: 'dashboard'})
         } else if (err) {
-          // router.replace('/')
-          // console.log(err)
           reject(err)
         }
       })
@@ -47,10 +43,6 @@ export default class AuthService {
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('token_payload', JSON.stringify(authResult.idTokenPayload))
-    // this.idTokenPayload = authResult.idTokenPayload
-
-    // TODO: use store...
-    // this.authNotifier.$emit('authChange', { authenticated: true })
   }
 
   getTokenPayload () {

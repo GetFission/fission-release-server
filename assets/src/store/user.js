@@ -18,21 +18,19 @@ const user = {
     profile: {},
     token: '',
     data: null,
-    error: {email: [], password1: [], password2: []},
     machine: null
   },
   actions: {
     async authenticate (context, credentials) {
       auth.login()
-      // console.log(auth.getTokenPayload())
-      // context.commit('AUTHENTICATE', auth.getTokenPayload())
-      // console.log('AUTH ACTION CALLED')
+      // TODO: ping backend
     },
     async handleAuthentication (context) {
-      await auth.handleAuthentication()
+      await auth.handleAuthentication() // TODO: impl .then & catch
       const payload = auth.getTokenPayload()
       console.log('payload is', payload)
       context.commit('AUTHENTICATE', payload)
+      // TODO: ping backend
     },
     async deauthenticate (context, payload) {
       auth.logout()
@@ -42,17 +40,6 @@ const user = {
     async load (context) {
       await userAPI.getData()
     },
-    // async register (context, payload) {
-    //   console.log('action to register', payload)
-    //   await userAPI.register(payload)
-    //     .then((data) => {
-    //       context.commit('SET_DATA', data)
-    //     })
-    //     .catch((err) => {
-    //       // TODO: check types of errors possible here...
-    //       context.commit('SET_ERROR', err.response.data)
-    //     })
-    // },
     async restore (context, token) {
       // restore token from local storage
       if (token) {

@@ -52,9 +52,6 @@
   export default {
     name: 'NavBar',
     computed: {
-      // user () {
-      //   return this.$store.state.user.data ? this.$store.state.user.data.email : null
-      // }
       isAuthenticated () {
         const profile = this.$store.state.user.profile
         return profile && profile.email
@@ -67,12 +64,10 @@
     methods: {
       async deauthenticate () {
         await this.$store.dispatch('deauthenticate')
-        // this.$store.state.user.auth.logout()
         this.$router.push({name: 'Welcome'})
       },
       async authenticate () {
         this.$store.dispatch('authenticate')
-        // this.$store.state.user.auth.login()
       }
     }
   }
