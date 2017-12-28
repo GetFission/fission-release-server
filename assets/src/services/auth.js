@@ -11,6 +11,7 @@ export default class AuthService {
     this.isAuthenticated = this.isAuthenticated.bind(this)
   }
 
+  // TODO: retrieve settings from config / env
   // eslint-disable-next-line new-cap
   auth0 = new auth0.WebAuth({
     domain: 'electron-fission.auth0.com',

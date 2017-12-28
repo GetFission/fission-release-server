@@ -28,6 +28,10 @@ const user = {
     async handleAuthentication (context) {
       await auth.handleAuthentication() // TODO: impl .then & catch
       const payload = auth.getTokenPayload()
+      await userAPI.authenticate()
+        .then((data) => { console.log('RESP', data) })
+        .catch((err) => { console.log('RESP', err) })
+
       console.log('payload is', payload)
       context.commit('AUTHENTICATE', payload)
       // TODO: ping backend
