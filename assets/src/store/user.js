@@ -28,6 +28,7 @@ const user = {
     async handleAuthentication (context) {
       await auth.handleAuthentication() // TODO: impl .then & catch
       const payload = auth.getTokenPayload()
+      debugger
       await userAPI.authenticate()
         .then((data) => { console.log('RESP', data) })
         .catch((err) => { console.log('RESP', err) })

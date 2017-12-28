@@ -11,13 +11,12 @@ export default class AuthService {
     this.isAuthenticated = this.isAuthenticated.bind(this)
   }
 
-  // TODO: retrieve settings from config / env
   // eslint-disable-next-line new-cap
   auth0 = new auth0.WebAuth({
-    domain: 'electron-fission.auth0.com',
-    clientID: '3noCCWzrdQyu8l2v8yGXuEMHOU5TgLrp',
-    redirectUri: 'http://localhost:8080/callback',
-    audience: 'https://api.electron-fission.com/v1/',
+    domain: process.env.AUTH0_DOMAIN,
+    clientID: process.env.JWT_AUDIENCE,
+    redirectUri: process.env.AUTH0_REDIRECT_URI,
+    // audience: 'https://api.get-fission.com/v1/',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })

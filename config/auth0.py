@@ -6,10 +6,7 @@ from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
 from six.moves.urllib import request
 
-JWKS_URL = os.environ.get(
-    'JWKS_URL',
-    'https://electron-fission.auth0.com/.well-known/jwks.json'
-)
+JWKS_URL = os.environ.get('JWKS_URL')
 json_url = request.urlopen(JWKS_URL)
 jwks = json.loads(json_url.read())
 cert = '-----BEGIN CERTIFICATE-----\n' + jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
@@ -25,6 +22,6 @@ JWT_AUTH = {
     'JWT_SECRET_KEY': os.environ.get('JWT_SECRET_KEY'),  # Auth0 Client Secret
     'JWT_ALGORITHM': 'RS256',
     'JWT_AUDIENCE': os.environ.get('JWT_AUDIENCE'),  # Auth0 Client ID
-    'JWT_ISSUER': 'https://electron-fission.auth0.com/',  # seems to be the tenant
+    'JWT_ISSUER': os.environ.get('JWT_ISSUER'),  # seems to be the tenant
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }

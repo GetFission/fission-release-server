@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 
+from pprint import pprint
+
 
 def clean_username(username):
     return username.replace('|', '.')
@@ -14,6 +16,9 @@ def jwt_get_username_from_payload_handler(payload):
         username=username,
         email=email
     )
+
+    print('pyload is')
+    pprint(payload)
 
     if created:
         print('new user here...', user)
