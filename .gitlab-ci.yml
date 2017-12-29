@@ -44,14 +44,16 @@ staging:
   - master
 
 
-# production:
-#   type: deploy
-#   script:
-#   - apt-get update -qy
-#   - apt-get install -y ruby-dev
-#   - apt-get install -y rubygems
-#   - gem install dpl
-#   - dpl --provider=heroku --strategy=git --username=$HEROKU_USER --password=$HEROKU_PASSWORD --app=electron-fission
-#   when: manual
-#   only:
-#   - tags
+production:
+  type: deploy
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - apt-get install -y rubygems
+  - gem install dpl
+  - dpl --provider=heroku --strategy=git --api-key=$HEROKU_API_KEY --username=$HEROKU_USER --password=$HEROKU_PASSWORD --app=electron-fission
+  - echo status is $?
+  - if (($? > 0)); then exit 1; fi
+  when: manual
+  only:
+  - master
