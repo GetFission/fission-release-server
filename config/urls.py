@@ -6,21 +6,14 @@ from django.views.generic import TemplateView, RedirectView
 
 from base import views as base_views
 
+from auth0authorization import views as auth_views
+
 urlpatterns = [
+    url(r'^profile/$', auth_views.ProfileView.as_view()),
     url(r'^api/v1/review-apps/', include('review_apps.urls', namespace='review-apps')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),
     url(r'^api/v1/rules/', include('rules.urls', namespace='rules')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-
-    url('^account/', include('allauth.urls')),
-    # TODO: override all auth email templates here...
-
-    # url(r'^email-verification/$',
-    #     TemplateView.as_view(template_name="email_verification.html"),
-    #     name='email-verification'),
+    url(r'^lifa-tree/', admin.site.urls),
 
     url(r'^$',
         cache_page(settings.PAGE_CACHE_SECONDS)(base_views.IndexView.as_view()),

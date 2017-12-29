@@ -2,65 +2,42 @@
 // import { polyfill } from 'es6-promise'
 // polyfill()
 import UserAPI from '../services/user'
+import AuthService from '../services/auth'
 import { setHeader, removeHeader } from '../services/http'
 import { setToken, removeToken } from '../util/token'
 
 const userAPI = new UserAPI()
+const auth = new AuthService()
 
 const store = {}
 
 const user = {
   namepspaced: true,
   state: {
+    profile: {},
     token: '',
     data: null,
-    error: {email: [], password1: [], password2: []},
     machine: null
   },
   actions: {
     async authenticate (context, credentials) {
-      await userAPI.authenticate(credentials)
+      auth.login()
+    },
+    async handleAuthentication (context) {
+      await auth.handleAuthentication() // TODO: impl .then & catch
+      await userAPI.authenticate()
         .then((data) => {
-          console.log('got token', data.data.key)
-          context.commit('SET_TOKEN', data.data.key)
-          context.commit('SET_DATA', {email: credentials.email})
+          const profile = data.data
+          context.commit('AUTHENTICATE', profile)
         })
-        .catch((err) => {
-          // TODO: check types of errors possible here...
-          console.log('fail...', err)
-          context.commit('SET_ERROR', err.response.data)
-        })
-
-      // // request (load) user data after authenticating
-      // if (context.getters.GET_STATE !== 'handling') {
-      //   await context.dispatch('load')
-      // }
+        .catch((err) => { console.log('RESP', err) })
     },
     async deauthenticate (context, payload) {
-      // TODO: implement
-      await userAPI.deauthenticate(context, payload)
-        .then((data) => {
-          context.commit('SET_DATA', {})
-        })
-        .catch((err) => {
-          console.log('error... deauthenticating', err)
-        })
+      auth.logout()
+      context.commit('DEAUTHENTICATE')
     },
     async load (context) {
-      // await REST.getData()
-      // write mutation to set data on success
       await userAPI.getData()
-    },
-    async register (context, payload) {
-      console.log('action to register', payload)
-      await userAPI.register(payload)
-        .then((data) => {
-          context.commit('SET_DATA', data)
-        })
-        .catch((err) => {
-          // TODO: check types of errors possible here...
-          context.commit('SET_ERROR', err.response.data)
-        })
     },
     async restore (context, token) {
       // restore token from local storage
@@ -76,6 +53,12 @@ const user = {
     GET_ERRORS: state => store.errors
   },
   mutations: {
+    AUTHENTICATE (state, profile) {
+      state.profile = profile
+    },
+    DEAUTHENTICATE (state) {
+      state.profile = {}
+    },
     /* eslint-disable */
     SET_TOKEN (state, { auth_token }) {
       state.token = auth_token

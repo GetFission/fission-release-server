@@ -1,11 +1,10 @@
-import { getCookie } from '../util'
 import { http, setHeader } from './http'
 
 class UserAPI {
-  async authenticate (payload) {
-    setHeader('X-CSRFToken', getCookie('csrftoken'))
-    const path = '/dj/rest-auth/login/'
-    return http.post(path, payload)
+  async authenticate () {
+    setHeader('Authorization', `Bearer ${localStorage.getItem('id_token')}`)
+    const path = '/dj/profile/'
+    return http.get(path)
   }
 
   async deauthenticate (context, payload) {
