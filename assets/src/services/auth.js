@@ -16,7 +16,6 @@ export default class AuthService {
     domain: process.env.AUTH0_DOMAIN,
     clientID: process.env.JWT_AUDIENCE,
     redirectUri: process.env.AUTH0_REDIRECT_URI,
-    // audience: 'https://api.get-fission.com/v1/',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })

@@ -3,8 +3,6 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import Welcome from '@/components/Welcome'
 import AuthCallback from '@/components/AuthCallback'
-// import SignUp from '@/components/SignUp'
-// import Login from '@/components/Login'
 import Dashboard from '@/views/Dashboard'
 
 Vue.use(Router)

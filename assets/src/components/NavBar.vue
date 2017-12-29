@@ -57,7 +57,7 @@
       },
       email () {
         const profile = this.$store.state.user.profile
-        return profile ? (profile.email ? profile.email : (profile.nickname ? profile.nickname : null)) : null
+        return profile ? profile.email : null
       }
     },
     methods: {
