@@ -14,7 +14,6 @@ const store = {}
 const user = {
   namepspaced: true,
   state: {
-    auth: auth,
     profile: {},
     token: '',
     data: null,
