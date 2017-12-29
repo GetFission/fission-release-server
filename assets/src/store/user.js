@@ -22,7 +22,6 @@ const user = {
   actions: {
     async authenticate (context, credentials) {
       auth.login()
-      // TODO: ping backend
     },
     async handleAuthentication (context) {
       await auth.handleAuthentication() // TODO: impl .then & catch
@@ -33,14 +32,10 @@ const user = {
           context.commit('AUTHENTICATE', profile)
         })
         .catch((err) => { console.log('RESP', err) })
-
-      console.log('payload is', payload)
-      // TODO: ping backend
     },
     async deauthenticate (context, payload) {
       auth.logout()
       context.commit('DEAUTHENTICATE')
-      console.log('logging out...')
     },
     async load (context) {
       await userAPI.getData()
