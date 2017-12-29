@@ -1,6 +1,11 @@
+import logging
+
 from django.contrib.auth import get_user_model
 
-from pprint import pprint
+from auth0authorization import models
+
+
+log = logging.getLogger('apps.auth0authorization')
 
 
 def clean_username(username):
@@ -9,20 +14,19 @@ def clean_username(username):
 
 def jwt_get_username_from_payload_handler(payload):
     User = get_user_model()
+
     username = clean_username(payload.get('sub'))
-    email = payload.get('email') or username + '@foo.com'
+    user, created = User.objects.get_or_create(username=username)
 
-    user, created = User.objects.get_or_create(
-        username=username,
-        email=email
-    )
+    # Update user email
+    user.email = payload.get('email') or user.email
+    user.save()
 
-    print('pyload is')
-    pprint(payload)
+    profile, _ = models.Auth0LoginProfile.objects.get_or_create(user=user)
+    profile.profile = payload
+    profile.save()
 
-    if created:
-        print('new user here...', user)
-    else:
-        print('old user coming back', user)
+    log.info('Is User just created?: {}'.format(created))
+    log.info('User logged in with payload: {}'.format(payload))
 
     return username

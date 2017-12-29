@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, BASE_DIR)
 
 
-from config.auth0 import JWT_AUTH
+from config.auth0 import get_jwt_auth
 
 
 class Common(Configuration):
@@ -30,8 +30,6 @@ class Common(Configuration):
     ACCOUNT_AUTHENTICATION_METHOD = 'email'
     ACCOUNT_EMAIL_REQUIRED = True
     ACCOUNT_USERNAME_REQUIRED = False
-
-    JWT_AUTH = JWT_AUTH
 
     DATABASES = {
         'default': dj_database_url.config()
@@ -200,6 +198,11 @@ class Common(Configuration):
                 'handlers': ['console', 'sentry'],
                 'propagate': False,
             },
+            'apps.auth0authorization': {
+                'level': 'DEBUG',
+                'handlers': ['console', 'sentry'],
+                'propagate': False,
+            },
             'apps.base': {
                 'level': 'DEBUG',
                 'handlers': ['console', 'sentry'],
@@ -224,6 +227,10 @@ class Development(Common):
 
     DEBUG = True
 
+    @property
+    def JWT_AUTH(self):
+        return get_jwt_auth()
+
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
     PAGE_CACHE_SECONDS = 1
@@ -244,10 +251,18 @@ class CI(Common):
 
 
 class Staging(Common):
-    pass
+
+    @property
+    def JWT_AUTH(self):
+        return get_jwt_auth()
 
 
 class Production(Common):
+
+    @property
+    def JWT_AUTH(self):
+        return get_jwt_auth()
+
     DEBUG = False
     TEMPLATE_DEBUG = DEBUG
 

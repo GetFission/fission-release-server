@@ -1,10 +1,15 @@
 [![Build Status](https://travis-ci.org/Seedstars/django-react-redux-base.svg?branch=master)](https://travis-ci.org/Seedstars/django-react-redux-base)
 
-# Django React/Redux Base Project
+# Django/VueJS Project
 
 This repository includes a boilerplate project used for all Seedstars Labs applications. It uses Django as backend and React as frontend.
 
 We build on the shoulders of giants with the following technologies:
+
+** Run tests **
+
+1. Export all environment variables
+2. `pytest`
 
 **Frontend**
 
