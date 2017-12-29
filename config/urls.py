@@ -9,7 +9,7 @@ from base import views as base_views
 from auth0authorization import views as auth_views
 
 urlpatterns = [
-    url(r'^profile/$', auth_views.ProfileView.as_view()),
+    url(r'^api/profile/$', auth_views.ProfileView.as_view()),
     url(r'^api/v1/review-apps/', include('review_apps.urls', namespace='review-apps')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),
     url(r'^api/v1/rules/', include('rules.urls', namespace='rules')),
