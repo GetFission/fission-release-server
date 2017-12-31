@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
-# Create your views here.
+from projects import models, serializers
+
+
+class ProjectCreateView(generics.CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = models.Project.objects.all()
+    serializer_class = serializers.ProjectCreateSerializer

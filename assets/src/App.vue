@@ -2,7 +2,6 @@
   <div id="app">
     <NavBar></NavBar>
     <router-view></router-view>
-    <div class="home is-fullheight"></div>
   </div>
 </template>
 

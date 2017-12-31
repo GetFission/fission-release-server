@@ -41,7 +41,7 @@
         </ul>
       </li>
     </ul>
-    <a class="button is-rounded"><i class="fa fa-plus"></i>Add project</a>
+    <router-link to="/dashboard/add-project" class="button is-rounded"><i class="fa fa-plus"></i>Add project</router-link>
     <p class="menu-label">
       Administration
     </p>

@@ -8,7 +8,7 @@
               <dashboard-sidebar></dashboard-sidebar>
             </div>
             <div class="column dashboard-body">
-              foo bar...
+              <router-view></router-view>
             </div>
           </div>
         </div>
@@ -20,18 +20,16 @@
 
 <script>
 import Vue from 'vue'
-import '@/components/DashboardSidebar'
+import DashboardSidebar from '@/components/DashboardSidebar'
 
-export default Vue.component('dashboard', {
-  name: 'Dashboard'
+export default Vue.component('Dashboard', {
+  components: {
+    DashboardSidebar
+  }
 })
 </script>
 
 <style lang="scss">
-  .dashboard-body {
-    background-color: red;
-  }
-
   #dashboard {
     background: #ECF0F3;
     align-items: flex-start;
