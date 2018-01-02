@@ -4,7 +4,9 @@ from projects import models as project_models
 
 
 class ProjectCreateSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(required=True)
     slug = serializers.SlugField(read_only=True)
+
     class Meta:
         model = project_models.Project
         fields = (
@@ -14,5 +16,5 @@ class ProjectCreateSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        validated_data['created_by'] = self.request.user
+        validated_data['created_by'] = self.context['request'].user
         return super().create(validated_data)
