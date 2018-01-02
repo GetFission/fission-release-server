@@ -1,25 +1,36 @@
 // // eslint-disable import/first
 // import { polyfill } from 'es6-promise'
 // polyfill()
-import ProjectsAPI from '../services/user'
+import ProjectsAPI from '../services/projects'
 
 const projectsApi = new ProjectsAPI()
 
 const user = {
   namepspaced: true,
   state: {
-    projects: {},
+    projects: []
   },
   actions: {
-    async ADD_PROJECT (context, payload) {
-      await projectsApi.addProject(payload)
+    // async ADD_PROJECT (context, payload) {
+    //   await projectsApi.addProject(payload)
+    //     .then((data) => {
+    //       console.log('new project added...')
+    //     })
+    //     .catch((err) => {
+    //       console.log('failed to create project')
+    //     })
+    // },
+    async LOAD_PROJECTS ({ commit }) {
+      await projectsApi.loadProjects()
         .then((data) => {
-          console.log('new project added...')
+          if (data.status === 200) {
+            commit('UPDATE_PROJECTS', data.data.results)
+          }
         })
         .catch((err) => {
-          console.log('failed to create project')
+          console.log('Error loading projects', err)
         })
-    },
+    }
   },
   getters: {
     // TODO: properly implement these
@@ -27,9 +38,8 @@ const user = {
     // GET_ERRORS: state => store.errors
   },
   mutations: {
-    ADD_PROJECT (state, profile) {
-      // TODO: Do I really need to add this to the state?
-      state.profile = profile
+    UPDATE_PROJECTS (state, projects) {
+      state.projects = projects
     },
     SET_DATA (state, message = {}) {
       state.data = message

@@ -25,6 +25,9 @@ import DashboardSidebar from '@/components/DashboardSidebar'
 export default Vue.component('Dashboard', {
   components: {
     DashboardSidebar
+  },
+  async created () {
+    await this.$store.dispatch('LOAD_PROJECTS')
   }
 })
 </script>

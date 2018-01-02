@@ -65,6 +65,7 @@ export default Vue.component('AddProjectForm', {
         // refresh user projects list (don't add project to users project
         //   in store, instead rely on backend to give us a consistent data set)
         // redirect to project page, project page should fetch data from backend from url param
+        await this.$store.dispatch('LOAD_PROJECTS')
         this.$router.push(`${resp.data.slug}/releases`)
       } else {
         // show errors to user

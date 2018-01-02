@@ -15,4 +15,7 @@ class ProjectListView(generics.ListAPIView):
     serializer_class = serializers.ProjectCreateSerializer
 
     def get_queryset(self):
-        return models.Project.objects.filter(created_by=self.request.user)
+        return (models.Project.objects
+            .filter(created_by=self.request.user)
+            .order_by('created')
+    )

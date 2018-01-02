@@ -12,22 +12,8 @@
       Projects <span class="tag is-info project-count">2</span>
     </p>
     <ul class="menu-list">
-      <li>
-        <a>Zulip</a>
-        <ul>
-          <li>
-            <a>Dashboard</a>
-          </li>
-          <li>
-            <a>Releases</a>
-          </li>
-          <li>
-            <a>Settings</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a>My Other App</a>
+      <li v-for="project in projects" :key="project.slug">
+        <a>{{ project.name }}</a>
         <ul>
           <li>
             <a>Dashboard</a>
@@ -62,6 +48,11 @@ import Vue from 'vue'
 export default Vue.component('dashboard-sidebar', {
   data: function () {
     return {
+    }
+  },
+  computed: {
+    projects () {
+      return this.$store.state.projects.projects
     }
   }
 })

@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 import user from './user'
+import projects from './projects'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    user
+    user,
+    projects
   },
   plugins: [createPersistedState()]
 })
