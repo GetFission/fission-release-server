@@ -10,9 +10,14 @@ from projects import models as project_models
 
 
 @pytest.fixture
-def client():
-    client = APIClient()
+def user():
     user = User.objects.create(username='foo')
+    return user
+
+
+@pytest.fixture
+def client(user):
+    client = APIClient()
     client.force_login(user)
     return client
 
@@ -33,11 +38,14 @@ def test_create_view(client):
 
 
 @pytest.mark.django_db
-def test_list_view(client):
-    project_models.Project.objects.create(name='Bar')
+def test_list_view(client, user):
+    # create 2 projects, one of which ish owned by current logged in user
+    project_models.Project.objects.create(name='Bar', created_by=user)
     project_models.Project.objects.create(name='Baz', rms_url='exampe.com/foo/baz')
 
     resp = client.get('/api/v1/projects/list/')
     assert resp.status_code == 200
-    assert resp.json()['results'] == [{}]
+    assert resp.json()['results'] == [
+        {'name': 'Bar', 'rms_url': None, 'slug': 'bar'}]
  
+    assert resp.json()['count'] == 1
