@@ -5,6 +5,7 @@ import Welcome from '@/components/Welcome'
 import AuthCallback from '@/components/AuthCallback'
 import Dashboard from '@/views/Dashboard'
 import AddProjectForm from '@/components/AddProjectForm'
+import Releases from '@/components/Releases'
 import Oops from '@/components/Oops'
 
 Vue.use(Router)
@@ -24,8 +25,13 @@ export default new Router({
         // },
         {
           path: 'add-project',
-          name: 'AddProjectForm',
+          name: 'add-project-form',
           component: AddProjectForm
+        },
+        {
+          path: ':slug/releases',
+          name: 'releases',
+          component: Releases
         }
       ]
     },

@@ -3,7 +3,7 @@ import { http, setHeader } from './http'
 class UserAPI {
   async authenticate () {
     setHeader('Authorization', `Bearer ${localStorage.getItem('id_token')}`)
-    const path = '/dj/profile/'
+    const path = '/api/profile/'
     return http.get(path)
   }
 

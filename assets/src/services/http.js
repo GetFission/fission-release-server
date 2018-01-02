@@ -5,8 +5,8 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 console.log('is dev is', IS_DEV)
 
 export const http = axios.create({
-  // baseURL: IS_DEV ? 'http://localhost:8000/' : undefined,  // eslint-disable-line
-  // withCredentials: true
+  baseURL: IS_DEV ? 'http://localhost:8000/' : undefined,  // eslint-disable-line
+  withCredentials: false
 })
 
 export function getHttp () {
