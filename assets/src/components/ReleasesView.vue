@@ -8,7 +8,7 @@
 <script>
 import Vue from 'vue'
 
-export default Vue.component('Releases', {
+export default Vue.component('ReleasesPane', {
   data: function () {
     return {
     }

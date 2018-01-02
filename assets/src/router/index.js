@@ -5,7 +5,7 @@ import Welcome from '@/components/Welcome'
 import AuthCallback from '@/components/AuthCallback'
 import Dashboard from '@/views/Dashboard'
 import AddProjectForm from '@/components/AddProjectForm'
-import Releases from '@/components/Releases'
+import ReleasesView from '@/components/ReleasesView'
 import Oops from '@/components/Oops'
 
 Vue.use(Router)
@@ -19,7 +19,7 @@ export default new Router({
       component: Dashboard,
       children: [
         // {
-        //   path: '/',
+        //   path: '',
         //   name: 'dashboard',
         //   component: Dashboard
         // },
@@ -31,7 +31,7 @@ export default new Router({
         {
           path: ':slug/releases',
           name: 'releases',
-          component: Releases
+          component: ReleasesView
         }
       ]
     },
