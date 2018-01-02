@@ -9,20 +9,20 @@
       </li>
     </ul>
     <p class="menu-label">
-      Projects <span class="tag is-info project-count">2</span>
+      Projects <span class="tag is-info project-count"> {{ projectsCount }}</span>
     </p>
     <ul class="menu-list">
       <li v-for="project in projects" :key="project.slug">
         <a>{{ project.name }}</a>
         <ul>
           <li>
-            <a>Dashboard</a>
+            <router-link exact :to="{name: 'dashboard.dashboard', params: {slug: project.slug}}">Dashboard</router-link>
           </li>
           <li>
-            <a>Releases</a>
+            <router-link exact :to="{name: 'dashboard.releases', params: {slug: project.slug}}">Releases</router-link>
           </li>
           <li>
-            <a>Settings</a>
+            <router-link exact :to="{name: 'dashboard.settings', params: {slug: project.slug}}">Settings</router-link>
           </li>
         </ul>
       </li>
@@ -53,6 +53,9 @@ export default Vue.component('dashboard-sidebar', {
   computed: {
     projects () {
       return this.$store.state.projects.projects
+    },
+    projectsCount () {
+      return this.projects.length
     }
   }
 })

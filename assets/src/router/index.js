@@ -12,6 +12,8 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  linkActiveClass: 'is-active',
+  linkExactActiveClass: 'is-active',
   routes: [
     {
       path: '/dashboard',
@@ -30,7 +32,7 @@ export default new Router({
         },
         {
           path: ':slug/releases',
-          name: 'releases',
+          name: 'dashboard.releases',
           component: ReleasesView
         }
       ]
