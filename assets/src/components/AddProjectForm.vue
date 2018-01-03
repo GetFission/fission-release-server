@@ -5,17 +5,27 @@
         <h3 class="title has-text-grey">New Project Form</h3>
         <p class="subtitle has-text-grey">Give us a little extra information about your project</p>
         <div class="box">
+          <div v-for="error in errorResp.non_field_errors">
+                  <p class="help is-danger">{{ error }}</p>
+                </div>
+
           <div class="field">
             <label class="label">Project name</label>
             <div class="control">
               <input v-model="projectName" class="input" type="text" placeholder="Electron Foo">
             </div>
+            <div v-for="error in errorResp.name">
+                    <p class="help is-danger">{{ error }}</p>
+                  </div>
           </div>
           <div class="field">
             <label class="label">Repository URL (if open source)</label>
             <div class="control">
               <input v-model="rmsUrl" class="input" type="text" placeholder="github.com/zulip/zulip-electron">
             </div>
+            <div v-for="error in errorResp.rms_url">
+                    <p class="help is-danger">{{ rms_url }}</p>
+                  </div>
           </div>
           <div class="control">
             <a @click="addProject" class="button is-link is-block">Add project</a>
@@ -38,7 +48,8 @@ export default Vue.component('AddProjectForm', {
   data: function () {
     return {
       projectName: '',
-      rmsUrl: ''
+      rmsUrl: '',
+      errorResp: {}
     }
   },
   methods: {
@@ -62,14 +73,10 @@ export default Vue.component('AddProjectForm', {
         })
 
       if (isSuccessful) {
-        // refresh user projects list (don't add project to users project
-        //   in store, instead rely on backend to give us a consistent data set)
-        // redirect to project page, project page should fetch data from backend from url param
         await this.$store.dispatch('LOAD_PROJECTS')
-        this.$router.push(`${resp.data.slug}/releases`)
+        this.$router.push({name: 'dashboard.releases', params: {slug: resp.data.slug}})
       } else {
-        // show errors to user
-        console.log('Error creating project...', resp)
+        this.errorResp = resp.response.data
       }
     }
   }
@@ -81,5 +88,3 @@ export default Vue.component('AddProjectForm', {
     align-items: center !important;
   }
 </style>
-
-
