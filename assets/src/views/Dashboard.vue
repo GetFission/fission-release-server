@@ -7,7 +7,7 @@
             <div class="column is-2">
               <dashboard-sidebar></dashboard-sidebar>
             </div>
-            <div class="column dashboard-body">
+            <div class="column is-10 dashboard-body">
               <router-view></router-view>
             </div>
           </div>
@@ -38,5 +38,3 @@ export default Vue.component('Dashboard', {
     align-items: flex-start;
   }
 </style>
-
-
