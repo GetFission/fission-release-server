@@ -19,7 +19,7 @@
             <router-link exact :to="{name: 'dashboard.dashboard', params: {slug: project.slug}}">Dashboard</router-link>
           </li>
           <li>
-            <router-link exact :to="{name: 'dashboard.releases', params: {slug: project.slug}}">Releases</router-link>
+            <router-link :to="{name: 'dashboard.releases', params: {slug: project.slug}}">Releases</router-link>
           </li>
           <li>
             <router-link exact :to="{name: 'dashboard.settings', params: {slug: project.slug}}">Settings</router-link>

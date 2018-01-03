@@ -12,7 +12,8 @@
         </div>
       </div>
     </section>
-    <section class="info-tiles">
+    <router-view></router-view>
+    <!-- <section class="info-tiles">
       <div class="tile is-ancestor has-text-centered">
         <div class="tile is-parent">
           <article class="tile is-child box">
@@ -28,11 +29,11 @@
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <button class="button is-large is-info"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Create new release</button>
+            <router-link class="button is-large is-info" tag="button" :to="{name: 'dashboard.releases.create-release', params: {slug: project.slug}}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Create new release</router-link>
           </article>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
