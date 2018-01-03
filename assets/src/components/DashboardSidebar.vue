@@ -9,39 +9,25 @@
       </li>
     </ul>
     <p class="menu-label">
-      Projects <span class="tag is-info project-count">2</span>
+      Projects <span class="tag is-info project-count"> {{ projectsCount }}</span>
     </p>
     <ul class="menu-list">
-      <li>
-        <a>Zulip</a>
+      <li v-for="project in projects" :key="project.slug">
+        <a>{{ project.name }}</a>
         <ul>
           <li>
-            <a>Dashboard</a>
+            <router-link exact :to="{name: 'dashboard.dashboard', params: {slug: project.slug}}">Dashboard</router-link>
           </li>
           <li>
-            <a>Releases</a>
+            <router-link exact :to="{name: 'dashboard.releases', params: {slug: project.slug}}">Releases</router-link>
           </li>
           <li>
-            <a>Settings</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a>My Other App</a>
-        <ul>
-          <li>
-            <a>Dashboard</a>
-          </li>
-          <li>
-            <a>Releases</a>
-          </li>
-          <li>
-            <a>Settings</a>
+            <router-link exact :to="{name: 'dashboard.settings', params: {slug: project.slug}}">Settings</router-link>
           </li>
         </ul>
       </li>
     </ul>
-    <a class="button is-rounded"><i class="fa fa-plus"></i>Add project</a>
+    <router-link to="/dashboard/add-project" class="button is-rounded"><i class="fa fa-plus"></i>Add project</router-link>
     <p class="menu-label">
       Administration
     </p>
@@ -62,6 +48,14 @@ import Vue from 'vue'
 export default Vue.component('dashboard-sidebar', {
   data: function () {
     return {
+    }
+  },
+  computed: {
+    projects () {
+      return this.$store.state.projects.projects
+    },
+    projectsCount () {
+      return this.projects.length
     }
   }
 })

@@ -7,8 +7,8 @@
             <div class="column is-2">
               <dashboard-sidebar></dashboard-sidebar>
             </div>
-            <div class="column dashboard-body">
-              foo bar...
+            <div class="column is-10 dashboard-body">
+              <router-view></router-view>
             </div>
           </div>
         </div>
@@ -20,22 +20,21 @@
 
 <script>
 import Vue from 'vue'
-import '@/components/DashboardSidebar'
+import DashboardSidebar from '@/components/DashboardSidebar'
 
-export default Vue.component('dashboard', {
-  name: 'Dashboard'
+export default Vue.component('Dashboard', {
+  components: {
+    DashboardSidebar
+  },
+  async created () {
+    await this.$store.dispatch('LOAD_PROJECTS')
+  }
 })
 </script>
 
 <style lang="scss">
-  .dashboard-body {
-    background-color: red;
-  }
-
   #dashboard {
     background: #ECF0F3;
     align-items: flex-start;
   }
 </style>
-
-

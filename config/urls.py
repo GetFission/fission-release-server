@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^api/v1/review-apps/', include('review_apps.urls', namespace='review-apps')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),
     url(r'^api/v1/rules/', include('rules.urls', namespace='rules')),
+    url(r'^api/v1/projects/', include('projects.urls', namespace='projects')),
     url(r'^lifa-tree/', admin.site.urls),
     url(r'',
         cache_page(settings.PAGE_CACHE_SECONDS)(base_views.IndexView.as_view()),
