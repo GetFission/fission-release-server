@@ -22,7 +22,7 @@ def user():
 
 @pytest.fixture
 def project():
-    project = project_models.Project.objects.create(name='foo')
+    project, _ = project_models.Project.objects.get_or_create(name='foo')
     return project
 
 
@@ -34,12 +34,14 @@ def client(user):
 
 
 @pytest.mark.django_db
-def test_create_view(client, project):
+def test_create_view_invalid(client, project):
     resp = client.post('/api/v1/releases/create/', {})
     assert resp.status_code == 400
     assert resp.json()['version'] == ["This field is required."]
-    assert resp.json()['project'] == ["This field is required."]
 
+
+@pytest.mark.django_db
+def test_create_view_valid(client, project):
     resp = client.post('/api/v1/releases/create/', {
         'name': 'alpha',
         'version': '1.1.1',
@@ -48,15 +50,25 @@ def test_create_view(client, project):
         'project': project.id
     })
 
+    print(resp.json())
     assert resp.status_code == 201
 
-    expected_json = {'name': 'alpha', 'version': '1.1.1', 'project': 1}
+    expected_json = {'name': 'alpha', 'version': '1.1.1', 'project': project.id}
     res_json = resp.json()
     darwin_artifact_path = res_json.pop('darwin_artifact')
     windows_artifact_path = res_json.pop('windows_artifact')
     assert 'amazonaws.com' in darwin_artifact_path
     assert 'amazonaws.com' in windows_artifact_path
     assert res_json == expected_json
+
+    resp = client.post('/api/v1/releases/create/', {
+        'name': 'alpha',
+        'version': '1.1.1',
+        'darwin_artifact': open(os.path.join(DATA_DIR, 'data/darwin_test_file.txt')),
+        'project_slug': project.slug
+    })
+
+    # assert resp.status_code == 201
 
 
 # @pytest.mark.django_db

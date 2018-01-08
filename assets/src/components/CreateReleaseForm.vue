@@ -69,6 +69,27 @@
             </div>
           </div>
         </div>
+        <div v-if="isUploading" class="modal is-active">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <!-- Any other Bulma elements you want -->
+            <div class="card has-text-centered">
+              <header class="card-header">
+                <p class="card-header-title is-centered">Creating release</p>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  Uploading artifacts...
+                  <div class="spinner">
+                    <img src="../../static/loading.svg" alt="loading" />
+                  </div>
+                  Page will automatically redirect when upload completes, do not navigate away.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <button class="modal-close is-large" aria-label="close"></button> -->
+        </div>
         <button @click="submit" class="button is-info is-right">Create release</button>
       </form>
     </div>
@@ -81,6 +102,10 @@
 <script>
 import Vue from 'vue'
 
+import ReleasesAPI from '../services/releases'
+
+const releaseAPI = new ReleasesAPI()
+
 export default Vue.component('CreateReleaseForm', {
   data: function () {
     return {
@@ -89,7 +114,8 @@ export default Vue.component('CreateReleaseForm', {
       windows_artifact: null,
       windowsFileName: 'MyExampleApp-win-5.7.0.zip',
       darwin_artifact: null,
-      darwinFileName: 'MyExampleApp-osx-5.7.0.zip'
+      darwinFileName: 'MyExampleApp-osx-5.7.0.zip',
+      isUploading: false
     }
   },
   methods: {
@@ -98,6 +124,9 @@ export default Vue.component('CreateReleaseForm', {
 
       const formData = new FormData()
 
+      formData.append('project_slug', this.$route.params.slug)
+
+      // Get files
       this.$el.querySelectorAll('input[type="file"]').forEach(element => {
         formData.append(element.name, element.files[0])
       })
@@ -115,6 +144,17 @@ export default Vue.component('CreateReleaseForm', {
 
       // POST data....
       // redirect to release detail page.. (where you can activate, pause, delete...)
+      this.isUploading = true
+      const that = this
+      releaseAPI.createRelease(formData)
+        .then((data) => {
+          that.isUploading = false
+          console.log('success', data)
+        })
+        .catch((err) => {
+          that.isUploading = false
+          console.log('error', err)
+        })
     }
   }
 })
@@ -124,8 +164,4 @@ export default Vue.component('CreateReleaseForm', {
   div.columns {
     margin-top: 1rem;
   }
-
-  // .section {
-  //   background: white;
-  // }
 </style>
