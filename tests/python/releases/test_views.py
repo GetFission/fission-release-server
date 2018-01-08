@@ -26,14 +26,15 @@ def test_create_view(client):
     resp = client.post('/api/v1/releases/create/', {})
     assert resp.status_code == 400
     assert resp.json()['name'] == ["This field is required."]
+    import pdb; pdb.set_trace()
 
-    resp = client.post('/api/v1/projects/create/', {
-        'name': 'Foo Project'
-    })
-    assert resp.status_code == 201
-    expected_json = {
-        'name': 'Foo Project', 'rms_url': None, 'slug': 'foo-project'}
-    assert resp.json() == expected_json
+    # resp = client.post('/api/v1/projects/create/', {
+    #     'name': 'Foo Project'
+    # })
+    # assert resp.status_code == 201
+    # expected_json = {
+    #     'name': 'Foo Project', 'rms_url': None, 'slug': 'foo-project'}
+    # assert resp.json() == expected_json
 
 
 # @pytest.mark.django_db

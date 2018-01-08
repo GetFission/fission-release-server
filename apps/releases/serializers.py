@@ -4,7 +4,7 @@ from releases import models as releases_models
 
 
 class ReleaseCreateSerializer(serializers.ModelSerializer):
-    # name = serializers.CharField(required=True)
+    name = serializers.CharField(required=False)
     # slug = serializers.SlugField(read_only=True)
 
     class Meta:
@@ -18,5 +18,6 @@ class ReleaseCreateSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
+        import pdb; pdb.set_trace()
         validated_data['created_by'] = self.context['request'].user
         return super().create(validated_data)
