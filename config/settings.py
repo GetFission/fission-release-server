@@ -49,10 +49,11 @@ class Common(Configuration):
     VENDOR_APPS = (
         'corsheaders',
         'django_extensions',
+        'knox',
         'raven.contrib.django.raven_compat',
         'rest_framework',
         'rest_framework.authtoken',
-        'knox',
+        'storages'
     )
 
     SITE_ID = 1
@@ -125,7 +126,10 @@ class Common(Configuration):
 
     # File Storage
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+    AWS_ACCESS_KEY_ID = values.Value()
+    AWS_SECRET_ACCESS_KEY = values.Value()
+    AWS_STORAGE_BUCKET_NAME = values.Value()
+    AWS_QUERYSTRING_AUTH = values.BooleanValue(False)
     # ############# REST FRAMEWORK ###################
 
     REST_FRAMEWORK = {
