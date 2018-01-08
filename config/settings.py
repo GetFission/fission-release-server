@@ -123,6 +123,9 @@ class Common(Configuration):
     # store static files locally and serve with whitenoise
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+    # File Storage
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
     # ############# REST FRAMEWORK ###################
 
     REST_FRAMEWORK = {

@@ -25,8 +25,7 @@ def client(user):
 def test_create_view(client):
     resp = client.post('/api/v1/releases/create/', {})
     assert resp.status_code == 400
-    assert resp.json()['name'] == ["This field is required."]
-    import pdb; pdb.set_trace()
+    assert resp.json()['version'] == ["This field is required."]
 
     # resp = client.post('/api/v1/projects/create/', {
     #     'name': 'Foo Project'
