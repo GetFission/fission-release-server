@@ -16,7 +16,7 @@
               <div class="field">
                 <label class="label">Release version</label>
                 <div class="control">
-                  <input v-model="release_version" class="input" type="text" placeholder="5.7.0">
+                  <input v-model="version" class="input" type="text" placeholder="5.7.0">
                 </div>
               </div>
             </div>
@@ -110,7 +110,7 @@ export default Vue.component('CreateReleaseForm', {
   data: function () {
     return {
       name: '',
-      release_version: '',
+      version: '',
       windows_artifact: null,
       windowsFileName: 'MyExampleApp-win-5.7.0.zip',
       darwin_artifact: null,
@@ -132,7 +132,7 @@ export default Vue.component('CreateReleaseForm', {
       })
 
       // populate remaining input fields
-      const formFields = ['name', 'release_version']
+      const formFields = ['name', 'version']
       formFields.forEach(fieldName => {
         formData.append(fieldName, this[fieldName])
       })
