@@ -61,6 +61,7 @@ class Common(Configuration):
         'auth0authorization',
         'base',
         'projects',
+        'releases',
         'review_apps'
     )
 
