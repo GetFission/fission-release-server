@@ -6,18 +6,28 @@
           <div class="tile is-parent is-vertical">
 
             <div class="tile is-child box">
+              <div v-for="error in errorResp.non_field_errors">
+                <p class="help is-danger">{{ error }}</p>
+              </div>
               <p class="title">Basic info</p>
               <div class="field">
                 <label class="label">Name</label>
                 <div class="control">
                   <input v-model="name" class="input" type="text" placeholder="Speed optimization feature">
                 </div>
+                <div v-for="error in errorResp.name">
+                  <p class="help is-danger">{{ error }}</p>
+                </div>
+
               </div>
               <div class="field">
                 <label class="label">Release version</label>
                 <div class="control">
                   <input v-model="version" class="input" type="text" placeholder="5.7.0">
                 </div>
+              </div>
+              <div v-for="error in errorResp.version">
+                <p class="help is-danger">{{ error }}</p>
               </div>
             </div>
 
@@ -46,6 +56,10 @@
                     {{ darwinFileName }}
                   </span>
                 </label>
+
+                <div v-for="error in errorResp.darwin_artifact">
+                  <p class="help is-danger">{{ error }}</p>
+                </div>
               </div>
 
               <br>
@@ -65,6 +79,9 @@
                     {{ windowsFileName }}
                   </span>
                 </label>
+                <div v-for="error in errorResp.windows_artifact">
+                  <p class="help is-danger">{{ error }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -72,23 +89,29 @@
         <div v-if="isUploading" class="modal is-active">
           <div class="modal-background"></div>
           <div class="modal-content">
-            <!-- Any other Bulma elements you want -->
             <div class="card has-text-centered">
               <header class="card-header">
                 <p class="card-header-title is-centered">Creating release</p>
               </header>
               <div class="card-content">
                 <div class="content">
-                  Uploading artifacts...
-                  <div class="spinner">
-                    <img src="../../static/loading.svg" alt="loading" />
+                  <div v-if="!isUploadingSuccessful">
+                    Uploading artifacts...
+                    <div class="spinner">
+                      <img src="../../static/loading.svg" alt="loading" />
+                    </div>
+                    Page will automatically redirect when upload completes, do not navigate away.
                   </div>
-                  Page will automatically redirect when upload completes, do not navigate away.
+                  <div v-else>
+                    <div class="success-icon has-text-success">
+                      <i class="fa fa-check fas fas-3x"></i>
+                    </div>
+                    Upload successful
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- <button class="modal-close is-large" aria-label="close"></button> -->
         </div>
         <button @click="submit" class="button is-info is-right">Create release</button>
       </form>
@@ -96,6 +119,7 @@
   </div>
 
 </template>
+
 
 
 
@@ -115,7 +139,9 @@ export default Vue.component('CreateReleaseForm', {
       windowsFileName: 'MyExampleApp-win-5.7.0.zip',
       darwin_artifact: null,
       darwinFileName: 'MyExampleApp-osx-5.7.0.zip',
-      isUploading: false
+      isUploading: false,
+      isUploadingSuccessful: false,
+      errorResp: {}
     }
   },
   methods: {
@@ -124,7 +150,7 @@ export default Vue.component('CreateReleaseForm', {
 
       const formData = new FormData()
 
-      formData.append('project_slug', this.$route.params.slug)
+      // formData.append('project_slug', this.$route.params.slug)
 
       // Get files
       this.$el.querySelectorAll('input[type="file"]').forEach(element => {
@@ -136,7 +162,8 @@ export default Vue.component('CreateReleaseForm', {
       // populate remaining input fields
       const formFields = ['name', 'version']
       formFields.forEach(fieldName => {
-        formData.append(fieldName, this[fieldName])
+        const fieldValue = this[fieldName]
+        if (fieldValue) formData.append(fieldName, fieldValue)
       })
 
       // Display the key/value pairs
@@ -149,12 +176,16 @@ export default Vue.component('CreateReleaseForm', {
       const that = this
       releaseAPI.createRelease(formData)
         .then((data) => {
-          that.isUploading = false
-          this.$router.push({name: 'dashboard.releases', params: {slug: this.$route.params.slug}})
+          that.isUploadingSuccessful = true
+          setTimeout(() => {
+            that.isUploading = false
+            this.$router.push({name: 'dashboard.releases', params: {slug: this.$route.params.slug}})
+          }, 1000)
         })
         .catch((err) => {
           that.isUploading = false
-          console.log('error', err)
+          console.log('error', err.response.data)
+          that.errorResp = err.response.data
         })
     }
   }
@@ -164,5 +195,9 @@ export default Vue.component('CreateReleaseForm', {
 <style lang="scss" scoped>
   div.columns {
     margin-top: 1rem;
+  }
+
+  .success-icon {
+    font-size: 4em;
   }
 </style>
