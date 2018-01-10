@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column is-8 is-offset-2">
+    <div class="column">
       <form enctype="multipart/form-data">
         <div class="tile is-ancestor">
           <div class="tile is-parent is-vertical">
@@ -33,9 +33,21 @@
 
             <div class="tile is-child box">
               <p class="title">Select audience</p>
-              <p>Coming soon..</p>
+              <div class="field">
+                <label class="label">OSX</label>
+                <div class="control rollout-input">
+                  <input disabled class="input" type="text" placeholder="20%">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Windows</label>
+                <div class="control rollout-input">
+                  <input disabled class="input" type="text" placeholder="20%">
+                </div>
+              </div>
             </div>
-
+          </div>
+          <div class="tile is-parent">
             <div class="tile is-child box">
               <p class="title">Upload artifacts</p>
 
@@ -119,6 +131,7 @@
   </div>
 
 </template>
+
 
 
 
