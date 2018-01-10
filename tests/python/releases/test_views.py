@@ -74,7 +74,10 @@ def test_list_view(client, project):
 
     resp = client.get('/api/v1/releases/list/{}/'.format(project.slug))
     assert resp.status_code == 200
-    assert resp.json()['results'] == [{
+    expectd_json = resp.json()['results']
+    assert expectd_json[0]['created']
+    del expectd_json[0]['created']
+    assert expectd_json  == [{
         'id': rls.id, 
         'darwin_artifact': None,
         'name': None,
