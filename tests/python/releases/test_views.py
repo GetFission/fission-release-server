@@ -49,8 +49,6 @@ def test_create_view_valid(client, project):
         'windows_artifact': open(os.path.join(DATA_DIR, 'data/windows_test_file.txt')),
         'project': project.id
     })
-
-    print(resp.json())
     assert resp.status_code == 201
 
     expected_json = {'name': 'alpha', 'version': '1.1.1', 'project': project.id}
@@ -67,19 +65,21 @@ def test_create_view_valid(client, project):
         'darwin_artifact': open(os.path.join(DATA_DIR, 'data/darwin_test_file.txt')),
         'project_slug': project.slug
     })
+    assert resp.status_code == 201
 
-    # assert resp.status_code == 201
 
+@pytest.mark.django_db
+def test_list_view(client, project):
+    rls = releases_models.Release.objects.create(version='1.1.1', project=project)
 
-# @pytest.mark.django_db
-# def test_list_view(client, user):
-#     # create 2 projects, one of which ish owned by current logged in user
-#     project_models.Project.objects.create(name='Bar', created_by=user)
-#     project_models.Project.objects.create(name='Baz', rms_url='exampe.com/foo/baz')
+    resp = client.get('/api/v1/releases/list/{}/'.format(project.slug))
+    assert resp.status_code == 200
+    assert resp.json()['results'] == [{
+        'id': rls.id, 
+        'darwin_artifact': None,
+        'name': None,
+        'project': project.id,
+        'version': '1.1.1',
+        'windows_artifact': None}]
 
-#     resp = client.get('/api/v1/projects/list/')
-#     assert resp.status_code == 200
-#     assert resp.json()['results'] == [
-#         {'name': 'Bar', 'rms_url': None, 'slug': 'bar'}]
- 
-#     assert resp.json()['count'] == 1
+    assert resp.json()['count'] == 1

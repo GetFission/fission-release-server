@@ -31,11 +31,11 @@
           <th></th>
         </tr>
         <tr v-for="release in releases" :key="release.id">
-          <td>{{ release.name }}</td>
+          <td>{{ release.name ? release.name : 'N/A' }}</td>
           <td>{{ release.version }}</td>
           <td>{{ release.created }}</td>
           <td>N/A</td>
-          <td>{{ release.status }}</td>
+          <td>{{ release.status ? release.status : 'N/A' }}</td>
           <td><button class="button is-info">manage</button></td>
         </tr>
       </tbody>
@@ -47,14 +47,18 @@
 <script>
 import Vue from 'vue'
 
+import ReleasesAPI from '../services/releases'
+
+const releasesAPI = new ReleasesAPI()
+
 export default Vue.component('ReleasesViewDefault', {
   data: function () {
     return {
       releases: [
-        {id: 1, name: 'alpha', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'},
-        {id: 2, name: 'beta', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'},
-        {id: 3, name: 'gamma', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'},
-        {id: 4, name: 'sigma', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'}
+        // {id: 1, name: 'alpha', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'},
+        // {id: 2, name: 'beta', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'},
+        // {id: 3, name: 'gamma', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'},
+        // {id: 4, name: 'sigma', version: '1.1.1', created: 'Jan 1st', status: 'Deployed'}
       ]
     }
   },
@@ -64,6 +68,18 @@ export default Vue.component('ReleasesViewDefault', {
       const isProjectSlug = (project) => project.slug === projectSlug
       return this.$store.state.projects.projects.find(isProjectSlug)
     }
+  },
+  mounted () {
+    const that = this
+    const projectSlug = this.$route.params.slug
+    releasesAPI.getReleases(projectSlug) // eventually take page #
+      .then((data) => {
+        console.log(data)
+        that.releases = data.data.results
+      })
+      .catch((err) => {
+        console.log('error fetching releases', err)
+      })
   }
 })
 </script>

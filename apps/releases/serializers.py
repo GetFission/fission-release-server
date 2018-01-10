@@ -5,6 +5,7 @@ from projects import models as project_models
 
 
 class ReleaseCreateSerializer(serializers.ModelSerializer):
+    project_slug = serializers.CharField(write_only=True, required=False)
     class Meta:
         model = releases_models.Release
         fields = (
@@ -12,7 +13,8 @@ class ReleaseCreateSerializer(serializers.ModelSerializer):
             'version',
             'darwin_artifact',
             'windows_artifact',
-            'project'
+            'project',
+            'project_slug'
         )
         extra_kwargs = {
             'version': {'required': True},
@@ -27,9 +29,22 @@ class ReleaseCreateSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
-    def validate(self, data):
-        if 'project' not in data and 'project_slug' not in data:
+    def validate(self, attrs):
+        if 'project' not in attrs and 'project_slug' not in attrs:
             raise serializers.ValidationError('project is a required field')
-        return super().validate(data)
+        return super().validate(attrs)
 
-        
+
+class ReleaseListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = releases_models.Release
+        fields = (
+            'id',
+            'created',
+            'name',
+            'version',
+            'darwin_artifact',
+            'windows_artifact',
+            'project',
+        )
+ 

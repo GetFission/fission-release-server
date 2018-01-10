@@ -7,9 +7,9 @@ class ReleasesAPI {
     return http.post(path, data)
   }
 
-  async getReleases (data) {
+  async getReleases (projectSlug) {
     setHeader('Authorization', `Bearer ${localStorage.getItem('id_token')}`)
-    const path = '/api/v1/releases/list/'
+    const path = `/api/v1/releases/list/${projectSlug}/`
     return http.get(path)
   }
 }

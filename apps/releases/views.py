@@ -12,10 +12,11 @@ class ReleaseCreateView(generics.CreateAPIView):
 
 class ReleaseListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = serializers.ReleaseCreateSerializer
+    serializer_class = serializers.ReleaseListSerializer
 
     def get_queryset(self):
         return (
             models.Release.objects
+            # .filter(project__slug=self.kwargs['project_slug'])
             .order_by('created')
         )

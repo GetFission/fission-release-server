@@ -19,7 +19,7 @@ class Release(dj_models.TimeStampedModel):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 
     def __str__(self):
-        return '<Project: {}>'.format(self.name)
+        return '<{}/{}/{}>'.format(self.project.name, self.version, self.name)
 
     def __repr__(self):
         return self.__str__()

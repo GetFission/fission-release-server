@@ -128,7 +128,9 @@ export default Vue.component('CreateReleaseForm', {
 
       // Get files
       this.$el.querySelectorAll('input[type="file"]').forEach(element => {
-        formData.append(element.name, element.files[0])
+        if (element.files[0]) {
+          formData.append(element.name, element.files[0])
+        }
       })
 
       // populate remaining input fields
@@ -143,13 +145,12 @@ export default Vue.component('CreateReleaseForm', {
       }
 
       // POST data....
-      // redirect to release detail page.. (where you can activate, pause, delete...)
       this.isUploading = true
       const that = this
       releaseAPI.createRelease(formData)
         .then((data) => {
           that.isUploading = false
-          console.log('success', data)
+          this.$router.push({name: 'dashboard.releases', params: {slug: this.$route.params.slug}})
         })
         .catch((err) => {
           that.isUploading = false
