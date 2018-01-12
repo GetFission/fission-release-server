@@ -6,8 +6,8 @@
         <p class="subtitle has-text-grey">Give us a little extra information about your project</p>
         <div class="box">
           <div v-for="error in errorResp.non_field_errors">
-                  <p class="help is-danger">{{ error }}</p>
-                </div>
+            <p class="help is-danger">{{ error }}</p>
+          </div>
 
           <div class="field">
             <label class="label">Project name</label>
@@ -15,8 +15,8 @@
               <input v-model="projectName" class="input" type="text" placeholder="Electron Foo">
             </div>
             <div v-for="error in errorResp.name">
-                    <p class="help is-danger">{{ error }}</p>
-                  </div>
+              <p class="help is-danger">{{ error }}</p>
+            </div>
           </div>
           <div class="field">
             <label class="label">Repository URL (if open source)</label>
@@ -24,8 +24,8 @@
               <input v-model="rmsUrl" class="input" type="text" placeholder="github.com/zulip/zulip-electron">
             </div>
             <div v-for="error in errorResp.rms_url">
-                    <p class="help is-danger">{{ rms_url }}</p>
-                  </div>
+              <p class="help is-danger">{{ rms_url }}</p>
+            </div>
           </div>
           <div class="control">
             <a @click="addProject" class="button is-link is-block">Add project</a>
@@ -36,6 +36,7 @@
   </div>
 
 </template>
+
 
 <script>
 import Vue from 'vue'

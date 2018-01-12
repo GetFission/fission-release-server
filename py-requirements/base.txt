@@ -18,6 +18,10 @@ whitenoise==3.3.1
 # Rest Framework
 djangorestframework==3.7.0
 
+# File storage
+boto3==1.5.9
+django-storages==1.6.5
+
 # Sentry
 raven==6.3.0
 

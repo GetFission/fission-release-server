@@ -6,6 +6,8 @@ import AuthCallback from '@/components/AuthCallback'
 import Dashboard from '@/views/Dashboard'
 import AddProjectForm from '@/components/AddProjectForm'
 import ReleasesView from '@/components/ReleasesView'
+import ReleasesViewDefault from '@/components/ReleasesViewDefault'
+import CreateReleaseForm from '@/components/CreateReleaseForm'
 import Oops from '@/components/Oops'
 
 Vue.use(Router)
@@ -32,8 +34,19 @@ export default new Router({
         },
         {
           path: ':slug/releases',
-          name: 'dashboard.releases',
-          component: ReleasesView
+          component: ReleasesView,
+          children: [
+            {
+              path: '',
+              name: 'dashboard.releases',
+              component: ReleasesViewDefault
+            },
+            {
+              path: 'create-release',
+              name: 'dashboard.releases.create-release',
+              component: CreateReleaseForm
+            }
+          ]
         }
       ]
     },
