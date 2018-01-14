@@ -63,7 +63,8 @@ class Common(Configuration):
         'base',
         'projects',
         'releases',
-        'review_apps'
+        'review_apps',
+        'updates'
     )
 
     INSTALLED_APPS = DJANGO_APPS + VENDOR_APPS + PROJECT_APPS
@@ -193,7 +194,7 @@ class Common(Configuration):
             },
             'django.request': {
                 'handlers': ['sentry', 'console'],
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'propagate': False,
             },
             'raven': {
