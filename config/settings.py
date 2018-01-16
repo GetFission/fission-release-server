@@ -21,7 +21,7 @@ class Common(Configuration):
     BASE_DIR = BASE_DIR
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'ajsdgas7&*kosdsa21[]jaksdhlka-;kmcv8l$#diepsm8&ah^'
+    SECRET_KEY = values.Value()
 
     DEBUG = True
 
