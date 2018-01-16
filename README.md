@@ -18,7 +18,7 @@ This project will open source and free to self-host or you can opt-in our manage
 We will be working towards achieving the aforementioned goals. If you are interested in projects updates / feedback follow me on Twitter [@SimplyAhmazing](https://twitter.com/SimplyAhmaz1ng)
 
 
-# Features
+# Wishlist
 
 * Companion auto-updater npm package
 * Advanced audience selection
