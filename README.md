@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/GetFission/fission-release-server.svg?branch=master)](https://travis-ci.org/GetFission/fission-release-server)
+[![](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://getfission.zulipchat.com)
+
 
 # [WIP] Fission Electron Release Server
 
