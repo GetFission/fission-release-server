@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/GetFission/fission-release-server.svg?branch=master)](https://travis-ci.org/GetFission/fission-release-server)
+[![pipeline status](https://gitlab.com/SimplyAhmazing1/electron-fission-github/badges/master/pipeline.svg)](https://gitlab.com/SimplyAhmazing1/electron-fission-github/commits/master)
+
 [![](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://getfission.zulipchat.com)
 
 
