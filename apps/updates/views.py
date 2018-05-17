@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
 def get_update_info(client_info):
@@ -27,6 +26,7 @@ def get_client_info(request):
       'sysarch': request.GET.get('sysarch'),
       'version': request.GET.get('version'),
       'channel': request.GET.get('channel'),
+      'os': request.GET.get('os') or 'mac'
     }
     return client_info
 

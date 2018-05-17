@@ -13,8 +13,12 @@ class Release(dj_models.TimeStampedModel):
     version = models.CharField(max_length=255, blank=True, null=True)
     project = models.ForeignKey(project_models.Project, blank=True, null=True)
 
+    # Todo: investigate windows artifacts (nsis, squirrel, nuget, etc..)
     windows_artifact = models.FileField(null=True, blank=True)
-    darwin_artifact = models.FileField(null=True, blank=True)
+
+    # Produced by electron builder. Mac zip-file is needed for auto-update
+    darwin_zip = models.FileField(null=True, blank=True)
+    darwin_dmg = models.FileField(null=True, blank=True)
 
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 
