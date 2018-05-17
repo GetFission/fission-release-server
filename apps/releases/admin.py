@@ -8,3 +8,4 @@ from releases import models
 #     readonly_fields = ['slug', 'api_key']
 
 admin.site.register(models.Release)
+admin.site.register(models.ReleaseRule)

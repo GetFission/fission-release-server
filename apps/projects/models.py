@@ -25,3 +25,19 @@ class Project(dj_models.TimeStampedModel):
 
     def __repr__(self):
         return self.__str__()
+
+
+# TODO: track ip addr, os, etc...
+class ProjectClient(dj_models.TimeStampedModel):
+    project = models.ForeignKey(Project, blank=True, null=True)
+    uid = models.CharField(max_length=255)
+    last_seen = models.DateTimeField(auto_now=True)
+    last_version_sent = models.CharField(max_length=255, blank=True, null=True)
+    last_version_seen = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f'<{self.project.name}/{self.uid}/{self.last_version_seen}>'
+
+    def __repr__(self):
+        return self.__str__()
+

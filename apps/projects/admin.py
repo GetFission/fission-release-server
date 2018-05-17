@@ -7,3 +7,4 @@ class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ['slug', 'api_key']
 
 admin.site.register(models.Project, ProjectAdmin)
+admin.site.register(models.ProjectClient)

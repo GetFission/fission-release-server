@@ -1,4 +1,35 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
+from projects import models as project_models
+
+
+def register_client(project, uid, version):
+    c, created = project_models.ProjectClient.objects.get_or_create(uid=uid)
+    c.project = project
+    c.last_version_seen = version
+    c.save()  # Save to update the last seen time stamp via auto_add_now
+    return (c, created)
+
+
+def update_result_for_release(release):
+    """
+    {
+        'files': [{
+            'url': 'http://localhost:8005/v6/electron-updater-example-0.6.0-mac.zip',
+            'sha512': 'Sby01m3bYYslcBqqXVD4bE07eM0OjxQDJLnC3o+FJu4m7ohmxmVl65Epq13etYPQzzHJx+pTbJ1uQDCTAImDUA==' }
+        ],
+        'version': '0.6.0',
+        'releaseDate': '2018-01-16T20:52:11.688Z'
+    }
+    """
+
+    release_files = [release.get_darwin_release_files() or []]
+
+    res = {
+        'version': release.version,
+        'releaseDate': release.created,
+        'files': release_files
+    }
+    return res
 
 def get_update_info(client_info):
     """Given a user and  app update URL, returns
@@ -9,19 +40,28 @@ def get_update_info(client_info):
     #     'version': '0.6.0',
     #     'pub_date': 123
     # }
-    return {
-        'files': [{
-            'url': 'http://localhost:8005/v6/electron-updater-example-0.6.0-mac.zip',
-            'sha512': 'Sby01m3bYYslcBqqXVD4bE07eM0OjxQDJLnC3o+FJu4m7ohmxmVl65Epq13etYPQzzHJx+pTbJ1uQDCTAImDUA==' }
-        ],
-        'version': '0.6.0',
-        'releaseDate': '2018-01-16T20:52:11.688Z'
-    }
+
+    project_key = client_info.get('project_key')
+    project = project_models.Project.objects.get(api_key=project_key)
+
+    # Don't send update clients never yet seen before
+
+    client, registered = register_client(project, client_info.get('uid'), client_info.get('version'))
+    if registered:
+        return {}
+
+    release_rule = project.release_rules.all().order_by('release__version').first()
+
+    update_result =  update_result_for_release(release_rule.release)
+    client.last_version_sent = update_result.get('version')
+    client.save()
+
+    return update_result
 
 
 def get_client_info(request):
     client_info = {
-      'user_id': request.GET.get('userId'),
+      'uid': request.GET.get('uid'),
       'project_key': request.GET.get('projectKey'),
       'sysarch': request.GET.get('sysarch'),
       'version': request.GET.get('version'),
@@ -30,8 +70,8 @@ def get_client_info(request):
     }
     return client_info
 
+
 def serve_update(request):
-    # import pdb; pdb.set_trace()
     update_info = get_update_info(get_client_info(request))
     return JsonResponse(update_info)
 
