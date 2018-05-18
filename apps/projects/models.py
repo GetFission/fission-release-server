@@ -29,10 +29,12 @@ class Project(dj_models.TimeStampedModel):
 
 # TODO: track ip addr, os, etc...
 class ProjectClient(dj_models.TimeStampedModel):
-    project = models.ForeignKey(Project, blank=True, null=True)
+    project = models.ForeignKey(Project, blank=True, null=True, related_name='clients')
     uid = models.CharField(max_length=255)
     last_seen = models.DateTimeField(auto_now=True)
     last_version_sent = models.CharField(max_length=255, blank=True, null=True)
+    # last_version_sent_release_rule = models.ForeignKey(
+    #     'releases.Release', blank=True, null=True)
     last_version_seen = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):

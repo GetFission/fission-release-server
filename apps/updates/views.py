@@ -1,6 +1,10 @@
 from django.http import JsonResponse
 from projects import models as project_models
 
+import threading
+from django.db import transaction
+
+lock = threading.Lock()
 
 def register_client(project, uid, version):
     c, created = project_models.ProjectClient.objects.get_or_create(uid=uid)
@@ -46,17 +50,29 @@ def get_update_info(client_info):
 
     # Don't send update clients never yet seen before
 
+    res = None
+
     client, registered = register_client(project, client_info.get('uid'), client_info.get('version'))
     if registered:
         return {}
 
     release_rule = project.release_rules.all().order_by('release__version').first()
 
-    update_result =  update_result_for_release(release_rule.release)
-    client.last_version_sent = update_result.get('version')
-    client.save()
+    # Note: this needs to be filtered by OS
+    population_count = project.clients.all().count()
+    population_with_version = project.clients.filter(last_version_seen=release_rule.release.version).count()
+    current_distrib_percent = (population_with_version / float(population_count)) * 100
+    print('actual', current_distrib_percent, 'but desired distribution', release_rule.darwin_percent)
+    if current_distrib_percent >= release_rule.darwin_percent:
+        print('sending over nothing')
+        res =  {}
+    else:
+        update_result =  update_result_for_release(release_rule.release)
+        client.last_version_sent = update_result.get('version')
+        client.save()
+        res = update_result
+    return res
 
-    return update_result
 
 
 def get_client_info(request):
