@@ -47,4 +47,9 @@ class ReleaseListSerializer(serializers.ModelSerializer):
             'windows_artifact',
             'project',
         )
- 
+
+
+class ReleaseRuleMemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = releases_models.ReleaseMember
+        fields = '__all__'

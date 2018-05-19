@@ -9,3 +9,4 @@ from releases import models
 
 admin.site.register(models.Release)
 admin.site.register(models.ReleaseRule)
+admin.site.register(models.ReleaseMember)

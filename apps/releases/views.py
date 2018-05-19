@@ -20,3 +20,16 @@ class ReleaseListView(generics.ListAPIView):
             # .filter(project__slug=self.kwargs['project_slug'])
             .order_by('created')
         )
+
+class ReleaseRuleMembersListView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.ReleaseRuleMemberSerializer
+
+    def get_queryset(self):
+        release_rule = models.ReleaseRule.objects.get(id=self.kwargs['rule_id'])
+        release_rule.generate_members()
+        return (
+            models.ReleaseMember.objects
+            .filter(release_rule_id=self.kwargs['rule_id'])
+            .order_by('created')
+        )
