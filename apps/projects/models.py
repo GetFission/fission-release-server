@@ -33,8 +33,8 @@ class ProjectClient(dj_models.TimeStampedModel):
     uid = models.CharField(max_length=255)
     last_seen = models.DateTimeField(auto_now=True)
     last_version_sent = models.CharField(max_length=255, blank=True, null=True)
-    # last_version_sent_release_rule = models.ForeignKey(
-    #     'releases.Release', blank=True, null=True)
+    last_version_sent_release_rule = models.ForeignKey(
+        'releases.ReleaseRule', blank=True, null=True)
     last_version_seen = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):

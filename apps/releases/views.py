@@ -26,8 +26,12 @@ class ReleaseRuleMembersListView(generics.ListAPIView):
     serializer_class = serializers.ReleaseRuleMemberSerializer
 
     def get_queryset(self):
+        is_redo = self.request.GET.get('redo')
         release_rule = models.ReleaseRule.objects.get(id=self.kwargs['rule_id'])
+        if is_redo:
+            release_rule.members.all().delete()
         release_rule.generate_members()
+
         return (
             models.ReleaseMember.objects
             .filter(release_rule_id=self.kwargs['rule_id'])

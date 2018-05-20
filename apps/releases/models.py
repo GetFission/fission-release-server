@@ -99,16 +99,19 @@ class ReleaseRule(dj_models.TimeStampedModel):
             print('new rule members generated')
 
     def is_promised_client(self, uid):
+        release_members = ReleaseMember.objects.filter(release_rule=self, is_rolled_back=False)
         current_members = set([
             member.project_client.uid
-            for member in ReleaseMember.objects.filter(release_rule=self)
+            for member in release_members
         ])
+        print('checking for', uid, 'in', current_members)
         return uid in current_members
 
 
 class ReleaseMember(dj_models.TimeStampedModel):
     project_client = models.ForeignKey('projects.ProjectClient', related_name='members')
-    release_rule = models.ForeignKey(ReleaseRule)
+    release_rule = models.ForeignKey(ReleaseRule, related_name='members')
+    is_rolled_back = models.BooleanField(default=False)
 
     def __str__(self):
         return '<RR {}/PC {}>'.format(self.release_rule.id, self.project_client.uid)

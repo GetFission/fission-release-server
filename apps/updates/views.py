@@ -57,6 +57,7 @@ def get_update_info(client_info):
     if registered:
         return {}
 
+    # TODO: if this release rule is not applicable then keep looking back
     release_rule = project.release_rules.all().order_by('release__version').first()
 
     # Note: this needs to be filtered by OS
@@ -64,6 +65,7 @@ def get_update_info(client_info):
         print('True %%%%%')
         update_result =  update_result_for_release(release_rule.release)
         client.last_version_sent = update_result.get('version')
+        client.last_version_sent_release_rule = release_rule
         client.save()
         res = update_result
     return res
@@ -88,10 +90,10 @@ def serve_update(request):
 
 
 def UnhandledURL(request, *args, **kwargs):
-    print('Request received')
+    # print('Request received')
     # print(request.path)
     # print('Args', args)
     # print('Kwargs', kwargs)
-    print(request.GET)
+    # print(request.GET)
     return serve_update(request)
     # return HttpResponse('We tried...')
