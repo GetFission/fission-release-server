@@ -4,10 +4,12 @@ from projects import models as project_models
 from glom import glom
 
 
-def register_client(project, uid, version):
-    c, created = project_models.ProjectClient.objects.get_or_create(uid=uid)
+def register_client(project, client_info):
+    c, created = project_models.ProjectClient.objects.get_or_create(uid=client_info.get('uid'))
     c.project = project
-    c.last_version_seen = version
+    c.last_version_seen = client_info.get('version')
+    c.sysarch = client_info.get('sysarch')
+    c.platform = client_info.get('platform')
     c.save()  # Save to update the last seen time stamp via auto_add_now
     return (c, created)
 
@@ -57,6 +59,7 @@ def get_update_info(client_info):
 
     client, registered = register_client(
         project, client_info.get('uid'), client_info.get('version'))
+
     if registered:
         return {}
 
@@ -65,8 +68,7 @@ def get_update_info(client_info):
 
     # Note: this needs to be filtered by OS
     if release_rule.is_promised_client(client_info.get('uid')):
-        print('True %%%%%')
-        update_result =  update_result_for_release(release_rule.release)
+        update_result =  update_result_for_release(release_rule.release, client_info.get('platform'))
         client.last_version_sent = update_result.get('version')
         client.last_version_sent_release_rule = release_rule
         client.save()
@@ -84,10 +86,7 @@ def get_client_info(request):
       'channel': 'channel',
       'platform': 'platform'
     }
-    res = glom(request.GET, client_info_spec)
-    import pdb; pdb.set_trace()
-
-    return res
+    return glom(request.GET, client_info_spec)
 
 
 def serve_update(request):
@@ -96,11 +95,5 @@ def serve_update(request):
 
 
 # TODO: log calls to this endpoint
-def update_view_func(request, *args, **kwargs):
-    # print('Request received')
-    # print(request.path)
-    # print('Args', args)
-    # print('Kwargs', kwargs)
-    # print(request.GET)
+def update_view_func(request):
     return serve_update(request)
-    # return HttpResponse('We tried...')
