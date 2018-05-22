@@ -45,16 +45,22 @@ def test_create_view_valid(client, project):
     resp = client.post('/api/v1/releases/create/', {
         'name': 'alpha',
         'version': '1.1.1',
-        'darwin_artifact': open(os.path.join(DATA_DIR, 'data/darwin_test_file.txt')),
-        'windows_artifact': open(os.path.join(DATA_DIR, 'data/windows_test_file.txt')),
+        'darwin_zip': open(os.path.join(DATA_DIR, 'data/darwin_test_file.txt')),
+        'nsis_exe': open(os.path.join(DATA_DIR, 'data/windows_test_file.txt')),
         'project': project.id
     })
     assert resp.status_code == 201
 
-    expected_json = {'name': 'alpha', 'version': '1.1.1', 'project': project.id}
+    expected_json = {
+        'name': 'alpha',
+        'version': '1.1.1',
+        'project': project.id,
+        'nsis_exe_sha512': None,
+        'darwin_zip_sha512': None
+    }
     res_json = resp.json()
-    darwin_artifact_path = res_json.pop('darwin_artifact')
-    windows_artifact_path = res_json.pop('windows_artifact')
+    darwin_artifact_path = res_json.pop('darwin_zip')
+    windows_artifact_path = res_json.pop('nsis_exe')
     assert 'amazonaws.com' in darwin_artifact_path
     assert 'amazonaws.com' in windows_artifact_path
     assert res_json == expected_json
@@ -62,7 +68,7 @@ def test_create_view_valid(client, project):
     resp = client.post('/api/v1/releases/create/', {
         'name': 'alpha',
         'version': '1.1.1',
-        'darwin_artifact': open(os.path.join(DATA_DIR, 'data/darwin_test_file.txt')),
+        'darwin_zip': open(os.path.join(DATA_DIR, 'data/darwin_test_file.txt')),
         'project_slug': project.slug
     })
     assert resp.status_code == 201
@@ -79,10 +85,10 @@ def test_list_view(client, project):
     del expectd_json[0]['created']
     assert expectd_json  == [{
         'id': rls.id, 
-        'darwin_artifact': None,
+        'darwin_zip': None,
         'name': None,
         'project': project.id,
         'version': '1.1.1',
-        'windows_artifact': None}]
+        'nsis_exe': None}]
 
     assert resp.json()['count'] == 1

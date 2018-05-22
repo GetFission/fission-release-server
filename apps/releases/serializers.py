@@ -11,8 +11,10 @@ class ReleaseCreateSerializer(serializers.ModelSerializer):
         fields = (
             'name',
             'version',
-            'darwin_artifact',
-            'windows_artifact',
+            'darwin_zip',
+            'darwin_zip_sha512',
+            'nsis_exe',
+            'nsis_exe_sha512',
             'project',
             'project_slug'
         )
@@ -43,8 +45,8 @@ class ReleaseListSerializer(serializers.ModelSerializer):
             'created',
             'name',
             'version',
-            'darwin_artifact',
-            'windows_artifact',
+            'darwin_zip',
+            'nsis_exe',
             'project',
         )
 
