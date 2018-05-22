@@ -14,14 +14,14 @@ class Release(dj_models.TimeStampedModel):
     version = models.CharField(max_length=255, blank=True, null=True)
     project = models.ForeignKey(project_models.Project, blank=True, null=True)
 
-    # Todo: investigate windows artifacts (nsis, squirrel, nuget, etc..)
-    windows_artifact = models.FileField(null=True, blank=True)
-
     # Produced by electron builder. Mac zip-file is needed for auto-update
     darwin_zip = models.FileField(null=True, blank=True)
     darwin_zip_sha512 = models.TextField(blank=True, null=True)
     darwin_dmg = models.FileField(null=True, blank=True)
     darwin_dmg_sha512 = models.TextField(blank=True, null=True)
+
+    nsis_exe = models.FileField(null=True, blank=True)
+    nsis_exe_sha512 = models.TextField(blank=True, null=True)
 
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 
@@ -36,6 +36,15 @@ class Release(dj_models.TimeStampedModel):
             res.append({
                 'url': self.darwin_dmg.url,
                 'sha512': self.darwin_dmg_sha512
+            })
+        return res
+
+    def get_windows_release_files(self):
+        res = []
+        if self.nsis_exe:
+            res.append({
+                'url': self.nsis_exe.url,
+                'sha512': self.nsis_exe_sha512
             })
         return res
 

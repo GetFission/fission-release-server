@@ -26,6 +26,7 @@ django-storages==1.6.5
 raven==6.3.0
 
 # for date processing
+glom==18.1.1
 python-dateutil==2.6.1
 
 django-rest-knox==3.0.3

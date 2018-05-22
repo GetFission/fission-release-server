@@ -6,8 +6,7 @@ from updates import views
 
 
 urlpatterns = [
-    #  url(r'^/$', views.ProjectCreateView.as_view()),
-    url(r'.*', views.UnhandledURL),
+    url(r'.*', views.update_view_func),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])

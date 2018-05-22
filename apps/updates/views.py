@@ -1,10 +1,8 @@
 from django.http import JsonResponse
 from projects import models as project_models
 
-import threading
-from django.db import transaction
+from glom import glom
 
-lock = threading.Lock()
 
 def register_client(project, uid, version):
     c, created = project_models.ProjectClient.objects.get_or_create(uid=uid)
@@ -14,7 +12,7 @@ def register_client(project, uid, version):
     return (c, created)
 
 
-def update_result_for_release(release):
+def update_result_for_release(release, platform):
     """
     {
         'files': [{
@@ -26,7 +24,12 @@ def update_result_for_release(release):
     }
     """
 
-    release_files = [release.get_darwin_release_files() or []]
+    if platform == 'win32':
+        release_files = [release.get_darwin_release_files() or []]
+    elif platform == 'darwin':
+        release_files = [release.get_windows_release_files() or []]
+    else:
+        raise Exception('Update Result requested for unsupported platform')
 
     res = {
         'version': release.version,
@@ -73,15 +76,18 @@ def get_update_info(client_info):
 
 
 def get_client_info(request):
-    client_info = {
-      'uid': str(request.GET.get('uid')),
-      'project_key': request.GET.get('projectKey'),
-      'sysarch': request.GET.get('sysarch'),
-      'version': request.GET.get('version'),
-      'channel': request.GET.get('channel'),
-      'os': request.GET.get('os') or 'mac'
+    client_info_spec = {
+      'uid': ('uid', lambda x: str(x)),
+      'project_key': 'projectKey',
+      'sysarch': 'sysarch',
+      'version': 'version',
+      'channel': 'channel',
+      'platform': 'platform'
     }
-    return client_info
+    res = glom(request.GET, client_info_spec)
+    import pdb; pdb.set_trace()
+
+    return res
 
 
 def serve_update(request):
@@ -89,7 +95,8 @@ def serve_update(request):
     return JsonResponse(update_info)
 
 
-def UnhandledURL(request, *args, **kwargs):
+# TODO: log calls to this endpoint
+def update_view_func(request, *args, **kwargs):
     # print('Request received')
     # print(request.path)
     # print('Args', args)
