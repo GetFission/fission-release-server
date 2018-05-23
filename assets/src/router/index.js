@@ -7,6 +7,7 @@ import Dashboard from '@/views/Dashboard'
 import AddProjectForm from '@/components/AddProjectForm'
 import ReleasesView from '@/components/ReleasesView'
 import ReleasesViewDefault from '@/components/ReleasesViewDefault'
+import ProjectDashboard from '@/components/ProjectDashboard'
 import CreateReleaseForm from '@/components/CreateReleaseForm'
 import Oops from '@/components/Oops'
 
@@ -33,13 +34,18 @@ export default new Router({
           component: AddProjectForm
         },
         {
-          path: ':slug/releases',
+          path: ':slug/',
           component: ReleasesView,
           children: [
             {
-              path: '',
+              path: 'releases',
               name: 'dashboard.releases',
               component: ReleasesViewDefault
+            },
+            {
+              path: 'dashboard',
+              name: 'dashboard.project-dashboard',
+              component: ProjectDashboard
             },
             {
               path: 'create-release',

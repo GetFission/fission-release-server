@@ -16,7 +16,7 @@
         <a>{{ project.name }}</a>
         <ul>
           <li>
-            <router-link exact :to="{name: 'dashboard.dashboard', params: {slug: project.slug}}">Dashboard</router-link>
+            <router-link exact :to="{name: 'dashboard.project-dashboard', params: {slug: project.slug}}">Dashboard</router-link>
           </li>
           <li>
             <router-link :to="{name: 'dashboard.releases', params: {slug: project.slug}}">Releases</router-link>
@@ -72,7 +72,7 @@ export default Vue.component('dashboard-sidebar', {
   //   align-items: unset;
   // }
 
-  
+
   // nav.navbar {
   //   border-top: 4px solid #276cda;
   //   margin-bottom: 1rem;

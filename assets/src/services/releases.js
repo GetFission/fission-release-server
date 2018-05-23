@@ -7,6 +7,12 @@ class ReleasesAPI {
     return http.post(path, data)
   }
 
+  async deleteRelease (data) {
+    setHeader('Authorization', `Bearer ${localStorage.getItem('id_token')}`)
+    const path = '/api/v1/releases/delete/'
+    return http.post(path, data)
+  }
+
   async getReleases (projectSlug) {
     setHeader('Authorization', `Bearer ${localStorage.getItem('id_token')}`)
     const path = `/api/v1/releases/list/${projectSlug}/`

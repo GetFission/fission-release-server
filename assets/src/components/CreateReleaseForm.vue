@@ -33,18 +33,7 @@
 
             <div class="tile is-child box">
               <p class="title">Select audience</p>
-              <div class="field">
-                <label class="label">OSX</label>
-                <div class="control rollout-input">
-                  <input disabled class="input" type="text" placeholder="20%">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Windows</label>
-                <div class="control rollout-input">
-                  <input disabled class="input" type="text" placeholder="20%">
-                </div>
-              </div>
+              <ReleaseAudienceForm></ReleaseAudienceForm>
             </div>
           </div>
           <div class="tile is-parent">
@@ -52,7 +41,7 @@
               <p class="title">Upload artifacts</p>
 
               <br>
-              <p class="subtitle">OSX</p>
+              <p class="subtitle">OSX (zip)</p>
               <div class="file has-name is-fullwidth">
                 <label class="file-label">
                   <input class="file-input" type="file" name="darwin_artifact" @change="darwinFileName = $event.target.files[0].name">
@@ -75,7 +64,7 @@
               </div>
 
               <br>
-              <p class="subtitle">Windows</p>
+              <p class="subtitle">Windows (NSIS Exe)</p>
               <div class="file has-name is-fullwidth">
                 <label class="file-label">
                   <input class="file-input" type="file" name="windows_artifact" @change="windowsFileName = $event.target.files[0].name">
@@ -126,24 +115,25 @@
           </div>
         </div>
         <button @click="submit" class="button is-info is-right">Create release</button>
+        <button @click="deleteRelease" class="button is-danger is-right">Delete</button>
       </form>
     </div>
   </div>
 
 </template>
 
-
-
-
-
 <script>
 import Vue from 'vue'
 
+import ReleaseAudienceForm from '@/components/ReleaseAudienceForm'
 import ReleasesAPI from '../services/releases'
 
 const releaseAPI = new ReleasesAPI()
 
 export default Vue.component('CreateReleaseForm', {
+  components: {
+    ReleaseAudienceForm
+  },
   data: function () {
     return {
       name: '',
@@ -163,7 +153,8 @@ export default Vue.component('CreateReleaseForm', {
 
       const formData = new FormData()
 
-      // formData.append('project_slug', this.$route.params.slug)
+      formData.append('project_slug', this.$route.params.slug)
+      // debugger
 
       // Get files
       this.$el.querySelectorAll('input[type="file"]').forEach(element => {
@@ -200,6 +191,9 @@ export default Vue.component('CreateReleaseForm', {
           console.log('error', err.response.data)
           that.errorResp = err.response.data
         })
+    },
+    deleteRelease () {
+      releaseAPI.delete(this.releaseId)
     }
   }
 })
